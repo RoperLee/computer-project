@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computer.boot.mapper.UserMapper">
+<mapper namespace="com.computer.boot.mapper.HealthCheckMapper">
 
-    <resultMap type="com.computer.boot.model.User" id="User">
+    <resultMap type="com.computer.boot.model.HealthCheck" id="HealthCheck">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="age" column="age"/>
         <result property="password" column="password"/>
     </resultMap>
 
-    <select id="getUserById" resultMap="User">
-        SELECT * FROM USER
+    <select id="getUserById" resultMap="HealthCheck">
+        SELECT * FROM HEALTH_CHECK
         WHERE ID=#{id};
     </select>
 
     <select id="getUserNameById" resultType="string">
-        SELECT NAME FROM USER
+        SELECT NAME FROM HEALTH_CHECK
         WHERE ID=#{id};
     </select>
 

@@ -3,7 +3,7 @@ package com.computer.boot.model;
 /**
  * Created by roper on 2017/5/15.
  */
-public class User {
+public class HealthCheck {
 
     private int id;
     private String name;
