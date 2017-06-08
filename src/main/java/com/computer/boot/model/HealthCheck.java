@@ -8,7 +8,7 @@ public class HealthCheck {
     private int id;
     private String name;
     private int age;
-    private int password;
+    private String password;
 
     public int getId() { return id; }
 
@@ -22,7 +22,7 @@ public class HealthCheck {
 
     public void setAge(int age) { this.age = age; }
 
-    public int getPassword() { return password; }
+    public String getPassword() { return password; }
 
-    public void setPassword(int password) { this.password = password; }
+    public void setPassword(String password) { this.password = password; }
 }
