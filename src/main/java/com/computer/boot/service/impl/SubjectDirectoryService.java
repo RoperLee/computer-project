@@ -75,6 +75,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
     @Override
     public List<Directory> getIssueDirBySubjectIdAndKind(Integer subjectId, String issueKind) {
         if (null == subjectId || StringUtils.isBlank(issueKind)) {
+            logger.info("subjectId or issueKind is empty. subjectId={},issueKind={}", subjectId, issueKind);
             throw new RuntimeException("id and issuekind is necessary,please check again");
         }
         return directoryMapper.getIssueDirBySubjectIdAndKind(subjectId, issueKind);
