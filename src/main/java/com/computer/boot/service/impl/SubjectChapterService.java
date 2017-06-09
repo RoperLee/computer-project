@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,12 +48,15 @@ public class SubjectChapterService implements SubjectChapterServiceFacade {
         }
         resultVo.setExamSubject(subjectInfo);
         List<ChapterTopLevel> firstTitleList = chapterTopLevelMapper.getTopChapterListBySubjectId(id);
+        List<ChapterTreeVo> chapterList = new ArrayList<ChapterTreeVo>();
         for (int i = 0; i < firstTitleList.size(); i++) {
             ChapterTopLevel topLevel = firstTitleList.get(i);
             ChapterTreeVo itemVo = new ChapterTreeVo();
             itemVo.setFatherTitleLevel(topLevel);
             itemVo.setChildTitleLevel(chapterLastLevelMapper.getLastChapterListByParentId(topLevel.getId()));
+            chapterList.add(itemVo);
         }
+        resultVo.setSubjectChapterVo(chapterList);
         return resultVo;
     }
 
