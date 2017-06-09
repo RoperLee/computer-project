@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computer.boot.mapper.QuestionMapper">
+
+    <resultMap type="com.computer.boot.model.Question" id="Question">
+        <result property="id" column="ID"/>
+        <result property="questionType" column="QUESTION_TYPE"/>
+        <result property="content" column="CONTENT"/>
+        <result property="option" column="OPTION"/>
+        <result property="analysis" column="ANALYSIS"/>
+        <result property="subjectId" column="SUBJECT_ID"/>
+        <result property="kind" column="KIND"/>
+        <result property="directoryId" column="DIRECTORY_ID"/>
+        <result property="sortKeyNumber" column="SORT_KEY_NUMBER"/>
+    </resultMap>
+
+
+</mapper>
