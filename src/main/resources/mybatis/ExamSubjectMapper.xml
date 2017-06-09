@@ -4,8 +4,6 @@
 
     <resultMap type="com.computer.boot.model.ExamSubject" id="ExamSubject">
         <result property="id" column="ID"/>
-        <result property="gmtCreat" column="GMT_CREAT"/>
-        <result property="isDeleted" column="IS_DELETED"/>
         <result property="fullName" column="FULL_NAME"/>
         <result property="shortName" column="SHORT_NAME"/>
         <result property="year" column="YEAR"/>

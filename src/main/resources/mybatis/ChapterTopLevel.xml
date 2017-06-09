@@ -4,8 +4,6 @@
 
     <resultMap type="com.computer.boot.model.ChapterTopLevel" id="ChapterTopLevel">
         <result property="id" column="ID"/>
-        <result property="gmtCreat" column="GMT_CREAT"/>
-        <result property="isDeleted" column="IS_DELETED"/>
         <result property="title" column="TITLE"/>
         <result property="parentSubject" column="PARENT_SUBJECT"/>
         <result property="sortKeyNumber" column="SORT_KEY_NUMBER"/>

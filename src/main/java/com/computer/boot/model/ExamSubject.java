@@ -3,16 +3,11 @@ package com.computer.boot.model;
 /**
  * Created by roper on 2017/6/9.
  */
-public class ExamSubject {
+public class ExamSubject extends BasicModelObject{
 
-    private int id;
     private String fullName;
     private String shortName;
     private Integer year;
-
-    public int getId() { return id; }
-
-    public void setId(int id) { this.id = id; }
 
     public String getFullName() { return fullName; }
 

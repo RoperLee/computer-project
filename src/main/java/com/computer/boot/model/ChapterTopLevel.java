@@ -3,16 +3,12 @@ package com.computer.boot.model;
 /**
  * Created by roper on 2017/6/9.
  */
-public class ChapterTopLevel {
+public class ChapterTopLevel extends BasicModelObject{
 
     private int id;
     private String title;
     private Integer parentSubject;
     private Integer sortKeyNumber;
-
-    public int getId() { return id; }
-
-    public void setId(int id) { this.id = id; }
 
     public String getTitle() { return title; }
 
