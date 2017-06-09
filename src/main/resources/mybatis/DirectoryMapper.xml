@@ -14,6 +14,7 @@
         SELECT * FROM COMPUTER_DIRECTORY
         WHERE SUBJECT_ID = #{subjectId}
         AND CHAPTER_ID = #{chapterId}
+        AND IS_DELETED = 'N'
         ORDER BY SORT_KEY_NUMBER
     </select>
 
@@ -21,6 +22,7 @@
         SELECT * FROM COMPUTER_DIRECTORY
         WHERE SUBJECT_ID = #{subjectId}
         AND KIND = #{issueKind}
+        AND IS_DELETED = 'N'
         ORDER BY SORT_KEY_NUMBER
     </select>
 

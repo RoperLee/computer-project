@@ -11,6 +11,7 @@
     <select id="getChapterListBySubjectId" resultMap="Chapter">
         SELECT * FROM COMPUTER_CHAPTER
         WHERE SUBJECT_ID=#{subjectId}
+        AND IS_DELETED = 'N'
         ORDER BY SORT_KEY_NUMBER
     </select>
 

@@ -13,7 +13,7 @@ public enum QuestionType {
     /**
      * 填空题
      */
-    Blank,
+    BLANK,
 
     /**
      * 操作题

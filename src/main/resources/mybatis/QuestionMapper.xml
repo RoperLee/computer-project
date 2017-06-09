@@ -14,5 +14,13 @@
         <result property="sortKeyNumber" column="SORT_KEY_NUMBER"/>
     </resultMap>
 
+    <select id="getQuestionListBySubDirAndType" resultMap="Question">
+        SELECT * FROM COMPUTER_QUESTION
+        WHERE SUBJECT_ID = #{subjectId}
+        AND DIRECTORY_ID = #{directoryId}
+        AND QUESTION_TYPE = #{questionType}
+        AND IS_DELETED = 'N'
+        ORDER BY SORT_KEY_NUMBER
+    </select>
 
 </mapper>

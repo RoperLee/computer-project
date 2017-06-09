@@ -2,10 +2,9 @@ package com.computer.boot.service.impl;
 
 import com.computer.boot.mapper.ChapterMapper;
 import com.computer.boot.mapper.DirectoryMapper;
+import com.computer.boot.mapper.QuestionMapper;
 import com.computer.boot.mapper.SubjectMapper;
-import com.computer.boot.model.Chapter;
-import com.computer.boot.model.Directory;
-import com.computer.boot.model.Subject;
+import com.computer.boot.model.*;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
 import com.computer.boot.vo.ChapterTreeVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
@@ -14,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +28,13 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
     private static final Logger logger = LoggerFactory.getLogger(SubjectDirectoryService.class);
 
     @Autowired
-    SubjectMapper subjectMapper;
+    private SubjectMapper subjectMapper;
     @Autowired
-    ChapterMapper chapterMapper;
+    private ChapterMapper chapterMapper;
     @Autowired
-    DirectoryMapper directoryMapper;
+    private DirectoryMapper directoryMapper;
+    @Autowired
+    private QuestionMapper questionMapper;
 
 
     /**
@@ -75,6 +77,43 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
             throw new RuntimeException("id and issuekind is necessary,please check again");
         }
         return directoryMapper.getIssueDirBySubjectIdAndKind(subjectId, issueKind);
+    }
+
+    /**
+     * 获取某个Director下的所有题目，并按questionType分好组
+     *
+     * @param subjectId
+     * @param directoryId
+     * @return
+     */
+    @Override
+    public List<List<Question>> getQuestionGroupBySubIdAndDirId(Integer subjectId, Integer directoryId) {
+        List<List<Question>> resultGroup = new ArrayList<>();
+        if (null == subjectId || null == directoryId) {
+            return resultGroup;
+        }
+
+        //循环遍历QuestionType枚举题目类型
+        for (QuestionType e : QuestionType.values()) {
+            List<Question> tempList = getQuestionListBySubDirAndType(subjectId, directoryId, e);
+            if (!CollectionUtils.isEmpty(tempList)) {
+                resultGroup.add(tempList);
+            }
+        }
+
+        return resultGroup;
+    }
+
+    /**
+     * 获取某个directory下指定type类型的题目
+     *
+     * @param subjectId
+     * @param directoryId
+     * @param questionType 选择题：CHOICE  填空题：BLANK  操作题：OPERATION
+     * @return
+     */
+    public List<Question> getQuestionListBySubDirAndType(int subjectId, int directoryId, QuestionType questionType) {
+        return questionMapper.getQuestionListBySubDirAndType(subjectId, directoryId, questionType.name());
     }
 
 

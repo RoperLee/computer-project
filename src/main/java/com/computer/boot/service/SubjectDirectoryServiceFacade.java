@@ -1,6 +1,7 @@
 package com.computer.boot.service;
 
 import com.computer.boot.model.Directory;
+import com.computer.boot.model.Question;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +29,13 @@ public interface SubjectDirectoryServiceFacade {
      * @return
      */
     List<Directory> getIssueDirBySubjectIdAndKind(Integer subjectId, String issueKind);
+
+    /**
+     * 获取某个Director下的所有题目，并按questionType分好组
+     *
+     * @param subjectId
+     * @param directoryId
+     * @return
+     */
+    List<List<Question>> getQuestionGroupBySubIdAndDirId(Integer subjectId, Integer directoryId);
 }

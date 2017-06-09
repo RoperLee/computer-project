@@ -1,6 +1,7 @@
 package com.computer.boot.controller;
 
 import com.computer.boot.model.Directory;
+import com.computer.boot.model.Question;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -55,6 +56,21 @@ public class SubjectRelativeController {
         return subjectDirectoryServiceFacade.getIssueDirBySubjectIdAndKind(subjectId, issueKind);
     }
 
+    /**
+     * 获取某个Director下的所有题目，并按questionType分好组
+     *
+     * @param subjectId
+     * @param directoryId
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/subject/getQuestionGroup/By/SubIdAndDirId")
+    public List<List<Question>> getQuestionGroupBySubIdAndDirId(@RequestParam(value = "subjectId") int subjectId,
+                                                                @RequestParam(value = "directoryId") int directoryId,
+                                                                HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.getQuestionGroupBySubIdAndDirId(subjectId, directoryId);
+    }
 
 }
 

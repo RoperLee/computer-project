@@ -12,6 +12,7 @@
     <select id="getSubjectById" resultMap="Subject">
         SELECT * FROM COMPUTER_SUBJECT
         WHERE ID=#{id}
+        AND IS_DELETED = 'N'
     </select>
 
 

@@ -7,15 +7,15 @@ public enum IssueKind {
     /**
      * 章节
      */
-    Chapter,
+    CHAPTER,
 
     /**
      * 真题
      */
-    Exam,
+    EXAM,
 
     /**
      * 模拟题
      */
-    Simulate
+    SIMULATE
 }
