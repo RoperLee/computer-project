@@ -16,4 +16,7 @@ public interface QuestionMapper {
                                                   @Param("directoryId") int directoryId,
                                                   @Param("questionType") String questionType);
 
+    int selectTotalNumber(@Param("subjectId") int subjectId,
+                          @Param("directoryId") int directoryId);
+
 }

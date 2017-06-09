@@ -23,4 +23,11 @@
         ORDER BY SORT_KEY_NUMBER
     </select>
 
+    <select id="selectTotalNumber" resultType="long">
+        SELECT COUNT(*) FROM COMPUTER_QUESTION
+        WHERE SUBJECT_ID = #{subjectId}
+        AND DIRECTORY_ID = #{directoryId}
+        AND IS_DELETED = 'N'
+    </select>
+
 </mapper>

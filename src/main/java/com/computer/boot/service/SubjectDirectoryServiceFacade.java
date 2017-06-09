@@ -1,7 +1,7 @@
 package com.computer.boot.service;
 
 import com.computer.boot.model.Directory;
-import com.computer.boot.model.Question;
+import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +37,5 @@ public interface SubjectDirectoryServiceFacade {
      * @param directoryId
      * @return
      */
-    List<List<Question>> getQuestionGroupBySubIdAndDirId(Integer subjectId, Integer directoryId);
+    QuestionGroupVo getQuestionGroupBySubIdAndDirId(Integer subjectId, Integer directoryId);
 }

@@ -1,8 +1,8 @@
 package com.computer.boot.controller;
 
 import com.computer.boot.model.Directory;
-import com.computer.boot.model.Question;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
+import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -66,9 +66,9 @@ public class SubjectRelativeController {
      */
     @ResponseBody
     @RequestMapping(value = "/subject/getQuestionGroup/By/SubIdAndDirId")
-    public List<List<Question>> getQuestionGroupBySubIdAndDirId(@RequestParam(value = "subjectId") int subjectId,
-                                                                @RequestParam(value = "directoryId") int directoryId,
-                                                                HttpServletRequest request) {
+    public QuestionGroupVo getQuestionGroupBySubIdAndDirId(@RequestParam(value = "subjectId") int subjectId,
+                                                           @RequestParam(value = "directoryId") int directoryId,
+                                                           HttpServletRequest request) {
         return subjectDirectoryServiceFacade.getQuestionGroupBySubIdAndDirId(subjectId, directoryId);
     }
 

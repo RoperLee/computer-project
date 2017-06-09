@@ -7,6 +7,7 @@ import com.computer.boot.mapper.SubjectMapper;
 import com.computer.boot.model.*;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
 import com.computer.boot.vo.ChapterTreeVo;
+import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -87,20 +88,21 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      * @return
      */
     @Override
-    public List<List<Question>> getQuestionGroupBySubIdAndDirId(Integer subjectId, Integer directoryId) {
-        List<List<Question>> resultGroup = new ArrayList<>();
+    public QuestionGroupVo getQuestionGroupBySubIdAndDirId(Integer subjectId, Integer directoryId) {
+        QuestionGroupVo resultGroup = new QuestionGroupVo();
         if (null == subjectId || null == directoryId) {
             return resultGroup;
         }
-
+        List<List<Question>> QuestionCollect = new ArrayList<>();
         //循环遍历QuestionType枚举题目类型
         for (QuestionType e : QuestionType.values()) {
             List<Question> tempList = getQuestionListBySubDirAndType(subjectId, directoryId, e);
             if (!CollectionUtils.isEmpty(tempList)) {
-                resultGroup.add(tempList);
+                QuestionCollect.add(tempList);
             }
         }
-
+        resultGroup.setTotal(questionMapper.selectTotalNumber(subjectId, directoryId));
+        resultGroup.setQuestionGroup(QuestionCollect);
         return resultGroup;
     }
 
