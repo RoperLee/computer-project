@@ -1,13 +1,15 @@
 package com.computer.boot.service.impl;
 
-import com.computer.boot.mapper.DirectoryMapper;
 import com.computer.boot.mapper.ChapterMapper;
+import com.computer.boot.mapper.DirectoryMapper;
 import com.computer.boot.mapper.SubjectMapper;
 import com.computer.boot.model.Chapter;
+import com.computer.boot.model.Directory;
 import com.computer.boot.model.Subject;
-import com.computer.boot.service.SubjectChapterServiceFacade;
+import com.computer.boot.service.SubjectDirectoryServiceFacade;
 import com.computer.boot.vo.ChapterTreeVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,9 @@ import java.util.List;
  */
 
 @Service
-public class SubjectChapterService implements SubjectChapterServiceFacade {
+public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
 
-    private static final Logger logger = LoggerFactory.getLogger(SubjectChapterService.class);
+    private static final Logger logger = LoggerFactory.getLogger(SubjectDirectoryService.class);
 
     @Autowired
     SubjectMapper subjectMapper;
@@ -36,31 +38,89 @@ public class SubjectChapterService implements SubjectChapterServiceFacade {
     /**
      * 根据科目ID获取该科目下的章节树
      *
-     * @param id
+     * @param subjectId
      * @return
      */
     @Override
-    public SubjectChapterTreeVo getChapterTreeBySubjectId(int id) {
+    public SubjectChapterTreeVo getChapterTreeBySubjectId(Integer subjectId) {
         SubjectChapterTreeVo resultVo = new SubjectChapterTreeVo();
-        Subject subject = subjectMapper.getSubjectById(id);
+        Subject subject = subjectMapper.getSubjectById(subjectId);
         if (null == subject) {
             return resultVo;
         }
         resultVo.setSubject(subject);
-        List<Chapter> ChapterList = chapterMapper.getChapterListBySubjectId(id);
+        List<Chapter> ChapterList = chapterMapper.getChapterListBySubjectId(subjectId);
         List<ChapterTreeVo> chapterTreeList = new ArrayList<>();
         for (int i = 0; i < ChapterList.size(); i++) {
             Chapter chapter = ChapterList.get(i);
             ChapterTreeVo itemVo = new ChapterTreeVo();
             itemVo.setChapter(chapter);
-            itemVo.setDirectoryList(directoryMapper.getDirectoryListBySubIdAndChapterId(id, chapter.getId()));
+            itemVo.setDirectoryList(directoryMapper.getDirectoryListBySubIdAndChapterId(subjectId, chapter.getId()));
             chapterTreeList.add(itemVo);
         }
         resultVo.setChapterTree(chapterTreeList);
         return resultVo;
     }
 
+    /**
+     * 根据科目ID和题目类型获取对应的目录（主要是真题目录和模拟题目录）
+     *
+     * @param subjectId
+     * @param issueKind 真题：Exam, 模拟题：Simulate
+     * @return
+     */
+    @Override
+    public List<Directory> getIssueDirBySubjectIdAndKind(Integer subjectId, String issueKind) {
+        if (null == subjectId || StringUtils.isBlank(issueKind)) {
+            throw new RuntimeException("id and issuekind is necessary,please check again");
+        }
+        return directoryMapper.getIssueDirBySubjectIdAndKind(subjectId, issueKind);
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

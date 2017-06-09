@@ -15,4 +15,7 @@ public interface DirectoryMapper {
     List<Directory> getDirectoryListBySubIdAndChapterId(@Param("subjectId") int subjectId,
                                                         @Param("chapterId") int chapterId);
 
+    List<Directory> getIssueDirBySubjectIdAndKind(@Param("subjectId") int subjectId,
+                                                  @Param("issueKind") String issueKind);
+
 }
