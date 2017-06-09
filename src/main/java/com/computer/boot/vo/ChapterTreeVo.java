@@ -1,7 +1,7 @@
 package com.computer.boot.vo;
 
-import com.computer.boot.model.ChapterLastLevel;
-import com.computer.boot.model.ChapterTopLevel;
+import com.computer.boot.model.Directory;
+import com.computer.boot.model.Chapter;
 
 import java.util.List;
 
@@ -9,22 +9,22 @@ import java.util.List;
  * Created by roper on 2017/6/9.
  */
 public class ChapterTreeVo {
-    private ChapterTopLevel fatherTitleLevel;
-    private List<ChapterLastLevel> childTitleLevel;
+    private Chapter chapter;
+    private List<Directory> directoryList;
 
-    public ChapterTopLevel getFatherTitleLevel() {
-        return fatherTitleLevel;
+    public Chapter getChapter() {
+        return chapter;
     }
 
-    public void setFatherTitleLevel(ChapterTopLevel fatherTitleLevel) {
-        this.fatherTitleLevel = fatherTitleLevel;
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
     }
 
-    public List<ChapterLastLevel> getChildTitleLevel() {
-        return childTitleLevel;
+    public List<Directory> getDirectoryList() {
+        return directoryList;
     }
 
-    public void setChildTitleLevel(List<ChapterLastLevel> childTitleLevel) {
-        this.childTitleLevel = childTitleLevel;
+    public void setDirectoryList(List<Directory> directoryList) {
+        this.directoryList = directoryList;
     }
 }

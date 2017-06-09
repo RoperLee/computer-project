@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computer.boot.mapper.DirectoryMapper">
+
+    <resultMap type="com.computer.boot.model.Directory" id="Directory">
+        <result property="id" column="id"/>
+        <result property="title" column="TITLE"/>
+        <result property="chapterId" column="CHAPTER_ID"/>
+        <result property="subjectId" column="SUBJECT_ID"/>
+        <result property="kind" column="KIND"/>
+    </resultMap>
+
+    <select id="getDirectoryListBySubIdAndChapterId" resultMap="Directory">
+        SELECT * FROM COMPUTER_DIRECTORY
+        WHERE SUBJECT_ID = #{subjectId}
+        AND CHAPTER_ID = #{chapterId}
+        ORDER BY SORT_KEY_NUMBER
+    </select>
+
+</mapper>

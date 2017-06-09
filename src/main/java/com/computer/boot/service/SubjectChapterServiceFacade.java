@@ -1,6 +1,6 @@
 package com.computer.boot.service;
 
-import com.computer.boot.vo.SubjectChapterVo;
+import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,5 +15,5 @@ public interface SubjectChapterServiceFacade {
      * @param id
      * @return
      */
-    SubjectChapterVo getChapterTreeBySubjectId(int id);
+    SubjectChapterTreeVo getChapterTreeBySubjectId(int id);
 }

@@ -1,13 +1,13 @@
 package com.computer.boot.service.impl;
 
-import com.computer.boot.mapper.ChapterLastLevelMapper;
-import com.computer.boot.mapper.ChapterTopLevelMapper;
-import com.computer.boot.mapper.ExamSubjectMapper;
-import com.computer.boot.model.ChapterTopLevel;
-import com.computer.boot.model.ExamSubject;
+import com.computer.boot.mapper.DirectoryMapper;
+import com.computer.boot.mapper.ChapterMapper;
+import com.computer.boot.mapper.SubjectMapper;
+import com.computer.boot.model.Chapter;
+import com.computer.boot.model.Subject;
 import com.computer.boot.service.SubjectChapterServiceFacade;
 import com.computer.boot.vo.ChapterTreeVo;
-import com.computer.boot.vo.SubjectChapterVo;
+import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +26,11 @@ public class SubjectChapterService implements SubjectChapterServiceFacade {
     private static final Logger logger = LoggerFactory.getLogger(SubjectChapterService.class);
 
     @Autowired
-    ExamSubjectMapper examSubjectMapper;
+    SubjectMapper subjectMapper;
     @Autowired
-    ChapterTopLevelMapper chapterTopLevelMapper;
+    ChapterMapper chapterMapper;
     @Autowired
-    ChapterLastLevelMapper chapterLastLevelMapper;
+    DirectoryMapper directoryMapper;
 
 
     /**
@@ -40,23 +40,23 @@ public class SubjectChapterService implements SubjectChapterServiceFacade {
      * @return
      */
     @Override
-    public SubjectChapterVo getChapterTreeBySubjectId(int id) {
-        SubjectChapterVo resultVo = new SubjectChapterVo();
-        ExamSubject subjectInfo = examSubjectMapper.getSubjectInfoById(id);
-        if (null == subjectInfo) {
+    public SubjectChapterTreeVo getChapterTreeBySubjectId(int id) {
+        SubjectChapterTreeVo resultVo = new SubjectChapterTreeVo();
+        Subject subject = subjectMapper.getSubjectById(id);
+        if (null == subject) {
             return resultVo;
         }
-        resultVo.setExamSubject(subjectInfo);
-        List<ChapterTopLevel> firstTitleList = chapterTopLevelMapper.getTopChapterListBySubjectId(id);
-        List<ChapterTreeVo> chapterList = new ArrayList<ChapterTreeVo>();
-        for (int i = 0; i < firstTitleList.size(); i++) {
-            ChapterTopLevel topLevel = firstTitleList.get(i);
+        resultVo.setSubject(subject);
+        List<Chapter> ChapterList = chapterMapper.getChapterListBySubjectId(id);
+        List<ChapterTreeVo> chapterTreeList = new ArrayList<>();
+        for (int i = 0; i < ChapterList.size(); i++) {
+            Chapter chapter = ChapterList.get(i);
             ChapterTreeVo itemVo = new ChapterTreeVo();
-            itemVo.setFatherTitleLevel(topLevel);
-            itemVo.setChildTitleLevel(chapterLastLevelMapper.getLastChapterListByParentId(topLevel.getId()));
-            chapterList.add(itemVo);
+            itemVo.setChapter(chapter);
+            itemVo.setDirectoryList(directoryMapper.getDirectoryListBySubIdAndChapterId(id, chapter.getId()));
+            chapterTreeList.add(itemVo);
         }
-        resultVo.setSubjectChapterVo(chapterList);
+        resultVo.setChapterTree(chapterTreeList);
         return resultVo;
     }
 

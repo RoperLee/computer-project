@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computer.boot.mapper.ExamSubjectMapper">
+<mapper namespace="com.computer.boot.mapper.SubjectMapper">
 
-    <resultMap type="com.computer.boot.model.ExamSubject" id="ExamSubject">
+    <resultMap type="com.computer.boot.model.Subject" id="Subject">
         <result property="id" column="ID"/>
         <result property="fullName" column="FULL_NAME"/>
         <result property="shortName" column="SHORT_NAME"/>
         <result property="year" column="YEAR"/>
     </resultMap>
 
-    <select id="getSubjectInfoById" resultMap="ExamSubject">
-        SELECT * FROM EXAM_SUBJECT
+    <select id="getSubjectById" resultMap="Subject">
+        SELECT * FROM COMPUTER_SUBJECT
         WHERE ID=#{id}
     </select>
 

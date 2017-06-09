@@ -1,7 +1,7 @@
 package com.computer.boot.controller;
 
 import com.computer.boot.service.SubjectChapterServiceFacade;
-import com.computer.boot.vo.SubjectChapterVo;
+import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +31,8 @@ public class SubjectChapterInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "/subject/getChapterTreeBySubjectId")
-    public SubjectChapterVo getChapterBySubjectId(@RequestParam(value = "id", required = false, defaultValue = "1") int id,
-                                                  HttpServletRequest request) {
+    public SubjectChapterTreeVo getChapterBySubjectId(@RequestParam(value = "id", required = false, defaultValue = "1") int id,
+                                                      HttpServletRequest request) {
         return subjectChapterServiceFacade.getChapterTreeBySubjectId(id);
     }
 }

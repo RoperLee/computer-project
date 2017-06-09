@@ -3,7 +3,7 @@ package com.computer.boot.model;
 /**
  * Created by roper on 2017/6/9.
  */
-public class ExamSubject extends BasicModelObject{
+public class Subject extends BasicModelObject{
 
     private String fullName;
     private String shortName;
