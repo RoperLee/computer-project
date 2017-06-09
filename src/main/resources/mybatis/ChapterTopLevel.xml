@@ -4,15 +4,15 @@
 
     <resultMap type="com.computer.boot.model.ChapterTopLevel" id="ChapterTopLevel">
         <result property="id" column="ID"/>
-        <result property="gmt_creat" column="GMT_CREAT"/>
-        <result property="is_deleted" column="IS_DELETED"/>
+        <result property="gmtCreat" column="GMT_CREAT"/>
+        <result property="isDeleted" column="IS_DELETED"/>
         <result property="title" column="TITLE"/>
         <result property="parentSubject" column="PARENT_SUBJECT"/>
         <result property="sortKeyNumber" column="SORT_KEY_NUMBER"/>
     </resultMap>
 
     <select id="getTopChapterListBySubjectId" resultMap="ChapterTopLevel">
-        SELECT * FROM CHAPTER_TOP_LEVAL
+        SELECT * FROM CHAPTER_TOP_LEVEL
         WHERE PARENT_SUBJECT=#{parentId}
         ORDER BY SORT_KEY_NUMBER
     </select>

@@ -42,6 +42,9 @@ public class SubjectChapterService implements SubjectChapterServiceFacade {
     public SubjectChapterVo getChapterTreeBySubjectId(int id) {
         SubjectChapterVo resultVo = new SubjectChapterVo();
         ExamSubject subjectInfo = examSubjectMapper.getSubjectInfoById(id);
+        if (null == subjectInfo) {
+            return resultVo;
+        }
         resultVo.setExamSubject(subjectInfo);
         List<ChapterTopLevel> firstTitleList = chapterTopLevelMapper.getTopChapterListBySubjectId(id);
         for (int i = 0; i < firstTitleList.size(); i++) {

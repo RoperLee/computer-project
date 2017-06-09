@@ -24,12 +24,13 @@ public class SubjectChapterInfoController {
 
     /**
      * 根据科目ID获取该科目下的章节树
+     *
      * @param id
      * @param request
      * @return
      */
     @ResponseBody
-    @RequestMapping("/subject/getChapterTreeBySubjectId")
+    @RequestMapping(value = "/subject/getChapterTreeBySubjectId")
     public SubjectChapterVo getChapterBySubjectId(@RequestParam(value = "id", required = false, defaultValue = "1") int id,
                                                   HttpServletRequest request) {
         return subjectChapterServiceFacade.getChapterTreeBySubjectId(id);
