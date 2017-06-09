@@ -3,10 +3,10 @@
 <mapper namespace="com.computer.boot.mapper.HealthCheckMapper">
 
     <resultMap type="com.computer.boot.model.HealthCheck" id="HealthCheck">
-        <result property="id" column="id"/>
-        <result property="name" column="name"/>
-        <result property="age" column="age"/>
-        <result property="password" column="password"/>
+        <result property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="age" column="AGE"/>
+        <result property="password" column="PASSWORD"/>
     </resultMap>
 
     <select id="getUserById" resultMap="HealthCheck">

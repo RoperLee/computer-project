@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computer.boot.mapper.ChapterLastLevelMapper">
+
+    <resultMap type="com.computer.boot.model.ChapterLastLevel" id="ChapterLastLevel">
+        <result property="id" column="id"/>
+        <result property="gmt_creat" column="GMT_CREAT"/>
+        <result property="is_deleted" column="IS_DELETED"/>
+        <result property="title" column="TITLE"/>
+        <result property="parentChapter" column="PARENT_CHAPTER"/>
+        <result property="sortKeyNumber" column="SORT_KEY_NUMBER"/>
+    </resultMap>
+
+    <select id="getLastChapterListByParentId" resultMap="ChapterLastLevel">
+        SELECT * FROM CHAPTER_LAST_LEVAL
+        WHERE PARENT_CHAPTER=#{parentId}
+        ORDER BY SORT_KEY_NUMBER
+    </select>
+
+</mapper>
