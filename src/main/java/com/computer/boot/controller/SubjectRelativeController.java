@@ -35,7 +35,7 @@ public class SubjectRelativeController {
      */
     @ResponseBody
     @RequestMapping(value = "/subject/getChapterTreeBySubjectId")
-    public SubjectChapterTreeVo getChapterBySubjectId(@RequestParam(value = "subjectId") int subjectId,
+    public SubjectChapterTreeVo getChapterBySubjectId(@RequestParam(value = "subjectId") Long subjectId,
                                                       HttpServletRequest request) {
         return subjectDirectoryServiceFacade.getChapterTreeBySubjectId(subjectId);
     }
@@ -50,7 +50,7 @@ public class SubjectRelativeController {
      */
     @ResponseBody
     @RequestMapping(value = "/subject/getIssueDirBySubjectIdAndKind")
-    public List<Directory> getIssueDirBySubjectIdAndKind(@RequestParam(value = "subjectId") int subjectId,
+    public List<Directory> getIssueDirBySubjectIdAndKind(@RequestParam(value = "subjectId") Long subjectId,
                                                          @RequestParam(value = "issueKind") String issueKind,
                                                          HttpServletRequest request) {
         return subjectDirectoryServiceFacade.getIssueDirBySubjectIdAndKind(subjectId, issueKind);
@@ -66,8 +66,8 @@ public class SubjectRelativeController {
      */
     @ResponseBody
     @RequestMapping(value = "/subject/getQuestionGroup/By/SubIdAndDirId")
-    public QuestionGroupVo getQuestionGroupBySubIdAndDirId(@RequestParam(value = "subjectId") int subjectId,
-                                                           @RequestParam(value = "directoryId") int directoryId,
+    public QuestionGroupVo getQuestionGroupBySubIdAndDirId(@RequestParam(value = "subjectId") Long subjectId,
+                                                           @RequestParam(value = "directoryId") Long directoryId,
                                                            HttpServletRequest request) {
         return subjectDirectoryServiceFacade.getQuestionGroupBySubIdAndDirId(subjectId, directoryId);
     }

@@ -12,11 +12,11 @@ import java.util.List;
 @Service
 public interface QuestionMapper {
 
-    List<Question> getQuestionListBySubDirAndType(@Param("subjectId") int subjectId,
-                                                  @Param("directoryId") int directoryId,
+    List<Question> getQuestionListBySubDirAndType(@Param("subjectId") Long subjectId,
+                                                  @Param("directoryId") Long directoryId,
                                                   @Param("questionType") String questionType);
 
-    int selectTotalNumber(@Param("subjectId") int subjectId,
-                          @Param("directoryId") int directoryId);
+    Long selectTotalNumber(@Param("subjectId") Long subjectId,
+                          @Param("directoryId") Long directoryId);
 
 }

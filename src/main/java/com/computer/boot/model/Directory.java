@@ -6,23 +6,23 @@ package com.computer.boot.model;
 public class Directory extends BasicModelObject {
 
     private String title;
-    private Integer chapterId;
-    private Integer subjectId;
+    private Long chapterId;
+    private Long subjectId;
     private String kind;
 
-    public Integer getChapterId() {
+    public Long getChapterId() {
         return chapterId;
     }
 
-    public void setChapterId(Integer chapterId) {
+    public void setChapterId(Long chapterId) {
         this.chapterId = chapterId;
     }
 
-    public Integer getSubjectId() {
+    public Long getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(Integer subjectId) {
+    public void setSubjectId(Long subjectId) {
         this.subjectId = subjectId;
     }
 

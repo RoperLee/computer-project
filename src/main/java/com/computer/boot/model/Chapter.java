@@ -6,7 +6,7 @@ package com.computer.boot.model;
 public class Chapter extends BasicModelObject {
 
     private String title;
-    private Integer subjectId;
+    private Long subjectId;
 
     public String getTitle() {
         return title;
@@ -16,11 +16,11 @@ public class Chapter extends BasicModelObject {
         this.title = title;
     }
 
-    public Integer getSubjectId() {
+    public Long getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(Integer subjectId) {
+    public void setSubjectId(Long subjectId) {
         this.subjectId = subjectId;
     }
 }

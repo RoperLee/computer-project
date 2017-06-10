@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface SubjectMapper {
 
-    Subject getSubjectById(@Param("id") int id);
+    Subject getSubjectById(@Param("id") Long id);
 
 }

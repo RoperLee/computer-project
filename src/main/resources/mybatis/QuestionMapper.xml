@@ -11,7 +11,6 @@
         <result property="subjectId" column="SUBJECT_ID"/>
         <result property="kind" column="KIND"/>
         <result property="directoryId" column="DIRECTORY_ID"/>
-        <result property="sortKeyNumber" column="SORT_KEY_NUMBER"/>
     </resultMap>
 
     <select id="getQuestionListBySubDirAndType" resultMap="Question">

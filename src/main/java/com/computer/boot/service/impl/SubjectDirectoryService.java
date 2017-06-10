@@ -45,7 +45,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      * @return
      */
     @Override
-    public SubjectChapterTreeVo getChapterTreeBySubjectId(Integer subjectId) {
+    public SubjectChapterTreeVo getChapterTreeBySubjectId(Long subjectId) {
         SubjectChapterTreeVo resultVo = new SubjectChapterTreeVo();
         Subject subject = subjectMapper.getSubjectById(subjectId);
         if (null == subject) {
@@ -73,7 +73,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      * @return
      */
     @Override
-    public List<Directory> getIssueDirBySubjectIdAndKind(Integer subjectId, String issueKind) {
+    public List<Directory> getIssueDirBySubjectIdAndKind(Long subjectId, String issueKind) {
         if (null == subjectId || StringUtils.isBlank(issueKind)) {
             logger.info("subjectId or issueKind is empty. subjectId={},issueKind={}", subjectId, issueKind);
             throw new RuntimeException("id and issuekind is necessary,please check again");
@@ -89,7 +89,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      * @return
      */
     @Override
-    public QuestionGroupVo getQuestionGroupBySubIdAndDirId(Integer subjectId, Integer directoryId) {
+    public QuestionGroupVo getQuestionGroupBySubIdAndDirId(Long subjectId, Long directoryId) {
         QuestionGroupVo resultGroup = new QuestionGroupVo();
         if (null == subjectId || null == directoryId) {
             return resultGroup;
@@ -115,7 +115,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      * @param questionType 选择题：CHOICE  填空题：BLANK  操作题：OPERATION
      * @return
      */
-    public List<Question> getQuestionListBySubDirAndType(int subjectId, int directoryId, QuestionType questionType) {
+    public List<Question> getQuestionListBySubDirAndType(Long subjectId, Long directoryId, QuestionType questionType) {
         return questionMapper.getQuestionListBySubDirAndType(subjectId, directoryId, questionType.name());
     }
 

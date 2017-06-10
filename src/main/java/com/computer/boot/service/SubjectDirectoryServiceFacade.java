@@ -19,7 +19,7 @@ public interface SubjectDirectoryServiceFacade {
      * @param subjectId
      * @return
      */
-    SubjectChapterTreeVo getChapterTreeBySubjectId(Integer subjectId);
+    SubjectChapterTreeVo getChapterTreeBySubjectId(Long subjectId);
 
     /**
      * 根据科目ID和题目类型获取对应的目录（主要是真题目录和模拟题目录）
@@ -28,7 +28,7 @@ public interface SubjectDirectoryServiceFacade {
      * @param issueKind 真题：Exam, 模拟题：Simulate
      * @return
      */
-    List<Directory> getIssueDirBySubjectIdAndKind(Integer subjectId, String issueKind);
+    List<Directory> getIssueDirBySubjectIdAndKind(Long subjectId, String issueKind);
 
     /**
      * 获取某个Director下的所有题目，并按questionType分好组
@@ -37,5 +37,5 @@ public interface SubjectDirectoryServiceFacade {
      * @param directoryId
      * @return
      */
-    QuestionGroupVo getQuestionGroupBySubIdAndDirId(Integer subjectId, Integer directoryId);
+    QuestionGroupVo getQuestionGroupBySubIdAndDirId(Long subjectId, Long directoryId);
 }

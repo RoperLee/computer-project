@@ -9,14 +9,14 @@ import java.util.List;
  */
 public class QuestionGroupVo {
 
-    private int total;
+    private Long total;
     private List<List<Question>> questionGroup;
 
-    public int getTotal() {
+    public Long getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(Long total) {
         this.total = total;
     }
 

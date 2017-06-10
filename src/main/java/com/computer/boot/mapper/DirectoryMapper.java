@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public interface DirectoryMapper {
 
-    List<Directory> getDirectoryListBySubIdAndChapterId(@Param("subjectId") int subjectId,
-                                                        @Param("chapterId") int chapterId);
+    List<Directory> getDirectoryListBySubIdAndChapterId(@Param("subjectId") Long subjectId,
+                                                        @Param("chapterId") Long chapterId);
 
-    List<Directory> getIssueDirBySubjectIdAndKind(@Param("subjectId") int subjectId,
+    List<Directory> getIssueDirBySubjectIdAndKind(@Param("subjectId") Long subjectId,
                                                   @Param("issueKind") String issueKind);
 
 }

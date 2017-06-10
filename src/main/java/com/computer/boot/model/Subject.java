@@ -7,7 +7,7 @@ public class Subject extends BasicModelObject{
 
     private String fullName;
     private String shortName;
-    private Integer year;
+    private Long year;
 
     public String getFullName() { return fullName; }
 
@@ -17,8 +17,8 @@ public class Subject extends BasicModelObject{
 
     public void setShortName(String shortName) { this.shortName = shortName; }
 
-    public Integer getYear() { return year; }
+    public Long getYear() { return year; }
 
-    public void setYear(Integer year) { this.year = year; }
+    public void setYear(Long year) { this.year = year; }
 
 }

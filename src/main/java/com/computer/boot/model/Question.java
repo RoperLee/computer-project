@@ -9,9 +9,9 @@ public class Question extends BasicModelObject {
     private String content;
     private String option;
     private String analysis;
-    private Integer subjectId;
-    private Integer kind;
-    private Integer directoryId;
+    private Long subjectId;
+    private String kind;
+    private Long directoryId;
 
     public String getQuestionType() {
         return questionType;
@@ -45,27 +45,27 @@ public class Question extends BasicModelObject {
         this.analysis = analysis;
     }
 
-    public Integer getSubjectId() {
+    public Long getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(Integer subjectId) {
+    public void setSubjectId(Long subjectId) {
         this.subjectId = subjectId;
     }
 
-    public Integer getKind() {
+    public String getKind() {
         return kind;
     }
 
-    public void setKind(Integer kind) {
+    public void setKind(String kind) {
         this.kind = kind;
     }
 
-    public Integer getDirectoryId() {
+    public Long getDirectoryId() {
         return directoryId;
     }
 
-    public void setDirectoryId(Integer directoryId) {
+    public void setDirectoryId(Long directoryId) {
         this.directoryId = directoryId;
     }
 }

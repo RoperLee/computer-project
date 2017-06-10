@@ -12,6 +12,6 @@ import java.util.List;
 @Service
 public interface ChapterMapper {
 
-    List<Chapter> getChapterListBySubjectId(@Param("subjectId") int subjectId);
+    List<Chapter> getChapterListBySubjectId(@Param("subjectId") Long subjectId);
 
 }
