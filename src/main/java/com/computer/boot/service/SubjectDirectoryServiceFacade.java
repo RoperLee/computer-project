@@ -50,4 +50,37 @@ public interface SubjectDirectoryServiceFacade {
      */
     QueryQuestionVo queryQuestionListByKeyWord(int pageStart, int pageSize, String keyWord);
 
+    /**
+     * 获取推荐搜索关键词
+     *
+     * @param total
+     * @return
+     */
+    List<String> getRecommendSearchKeyWord(int total);
+
+    /**
+     * 插入搜索关键词（已经存在的就不再插入）
+     *
+     * @param key
+     * @return
+     */
+    boolean insertNewKey(String key);
+
+    /**
+     * 删除某个关键词
+     *
+     * @param key
+     * @return
+     */
+    boolean deleteKey(String key);
+
+    /**
+     * 为某个搜索关键词增加权重
+     *
+     * @param key
+     * @param offset
+     * @return
+     */
+    boolean addKeyCount(String key, int offset);
+
 }

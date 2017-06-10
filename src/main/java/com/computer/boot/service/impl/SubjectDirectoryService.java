@@ -1,9 +1,6 @@
 package com.computer.boot.service.impl;
 
-import com.computer.boot.mapper.ChapterMapper;
-import com.computer.boot.mapper.DirectoryMapper;
-import com.computer.boot.mapper.QuestionMapper;
-import com.computer.boot.mapper.SubjectMapper;
+import com.computer.boot.mapper.*;
 import com.computer.boot.model.*;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
 import com.computer.boot.vo.ChapterTreeVo;
@@ -37,6 +34,8 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
     private DirectoryMapper directoryMapper;
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private KeyMapper keyMapper;
 
 
     /**
@@ -143,6 +142,56 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         result.setQueryResult(questionMapper.queryQuestionListByKeyWord(pageStart, pageSize, keyWord));
         result.setTotal(questionMapper.queryTotalNumber(keyWord));
         return result;
+    }
+
+
+    /**
+     * 获取推荐搜索关键词
+     *
+     * @param total
+     * @return
+     */
+    public List<String> getRecommendSearchKeyWord(int total) {
+        return keyMapper.getHotKey(total);
+    }
+
+    /**
+     * 插入新搜索关键词
+     *
+     * @param key
+     * @return
+     */
+    public boolean insertNewKey(String key) {
+        //如果已经存在该关键词，则增加一即可
+        if (keyMapper.selectTotalNumber(key) > 0) {
+            keyMapper.addCount(key, 1);
+            return true;
+        }
+        keyMapper.insertNewKey(key);
+        return true;
+    }
+
+    /**
+     * 删除某个关键词
+     *
+     * @param key
+     * @return
+     */
+    public boolean deleteKey(String key) {
+        keyMapper.deleteKey(key);
+        return true;
+    }
+
+    /**
+     * 为某个搜索关键词增加权重
+     *
+     * @param key
+     * @param offset
+     * @return
+     */
+    public boolean addKeyCount(String key, int offset) {
+        keyMapper.addCount(key, offset);
+        return true;
     }
 
 

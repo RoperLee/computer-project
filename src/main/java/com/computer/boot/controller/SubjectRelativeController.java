@@ -92,6 +92,64 @@ public class SubjectRelativeController {
         return subjectDirectoryServiceFacade.queryQuestionListByKeyWord(pageStart, pageSize, keyWord);
     }
 
+
+    /**
+     * 获取推荐搜索关键词
+     *
+     * @param total
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/subject/getRecommendSearchKeyWord")
+    public List<String> getRecommendSearchKeyWord(@RequestParam(value = "total") int total,
+                                                  HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.getRecommendSearchKeyWord(total);
+    }
+
+    /**
+     * 插入搜索关键词（已经存在的就不再插入）
+     *
+     * @param key
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/subject/insertNewKey")
+    public boolean insertNewKey(@RequestParam(value = "key") String key, HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.insertNewKey(key);
+    }
+
+    /**
+     * 删除某个搜索关键词
+     *
+     * @param key
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/subject/deleteKey")
+    public boolean deleteKey(@RequestParam(value = "key") String key, HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.deleteKey(key);
+    }
+
+    /**
+     * 为某个搜索关键词增加权重
+     *
+     * @param key
+     * @param offset
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/subject/addKeyCount")
+    public boolean addKeyCount(@RequestParam(value = "key") String key,
+                               @RequestParam(value = "offset") int offset,
+                               HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.addKeyCount(key, offset);
+    }
+
+
 }
 
 

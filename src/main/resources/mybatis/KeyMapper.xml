@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computer.boot.mapper.KeyMapper">
+
+    <resultMap type="com.computer.boot.model.Key" id="Key">
+        <result property="id" column="ID"/>
+        <result property="key" column="Key"/>
+        <result property="count" column="COUNT"/>
+    </resultMap>
+
+    <insert id="insertNewKey">
+        INSERT INTO COMPUTER_KEY(id,gmt_creat,is_deleted,key,count)
+        VALUES(null,null,'N',#{key},1)
+    </insert>
+
+    <update id="deleteKey">
+        UPDATE COMPUTER_KEY
+        SET IS_DELETED='Y'
+        WHERE KEY=#{key}
+    </update>
+
+    <update id="addCount">
+        UPDATE COMPUTER_KEY
+        SET COUNT = COUNT + #{offset}
+        WHERE KEY=#{key}
+    </update>
+
+    <select id="getHotKey" resultType="string">
+        SELECT KEY FROM COMPUTER_KEY
+        WHERE IS_DELETED = 'N'
+        AND GMT_CREAT BETWEEN date_sub(now(),interval 6 month) and now();
+        ORDER BY COUNT DESC
+        LIMIT 0,#{total}
+    </select>
+
+    <select id="selectTotalNumber" resultType="long">
+        SELECT COUNT(*) FROM COMPUTER_KEY
+        WHERE KEY = #{key}
+        AND IS_DELETED = 'N'
+    </select>
+
+</mapper>
