@@ -1,6 +1,7 @@
 package com.computer.boot.service;
 
 import com.computer.boot.model.Directory;
+import com.computer.boot.vo.QueryQuestionVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.springframework.stereotype.Service;
@@ -38,4 +39,15 @@ public interface SubjectDirectoryServiceFacade {
      * @return
      */
     QuestionGroupVo getQuestionGroupBySubIdAndDirId(Long subjectId, Long directoryId);
+
+    /**
+     * 根据关键词进行模糊查询，分页返回查询列表
+     *
+     * @param pageStart
+     * @param pageSize
+     * @param keyWord
+     * @return
+     */
+    QueryQuestionVo queryQuestionListByKeyWord(int pageStart, int pageSize, String keyWord);
+
 }

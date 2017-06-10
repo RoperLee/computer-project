@@ -29,4 +29,36 @@
         AND IS_DELETED = 'N'
     </select>
 
+    <select id="queryQuestionListByKeyWord" resultMap="Question">
+        SELECT * FROM COMPUTER_QUESTION
+        <where>
+            <if test="keyWord != null">
+                CONTENT LIKE CONCAT('%','${keyWord}','%' )
+            </if>
+            AND IS_DELETED = 'N'
+        </where>
+        LIMIT #{pageStart},#{pageSize}
+    </select>
+
+    <select id="queryTotalNumber" resultType="long">
+        SELECT COUNT(*) FROM COMPUTER_QUESTION
+        <where>
+            <if test="keyWord != null">
+                CONTENT LIKE CONCAT('%','${keyWord}','%' )
+            </if>
+            AND IS_DELETED = 'N'
+        </where>
+    </select>
+
+    <!--SELECT * FROM t_app-->
+    <!--<where>-->
+        <!--<if test="name != null">-->
+            <!--name like CONCAT('%','${name}','%' )-->
+        <!--</if>-->
+        <!--<if test="url != null">-->
+            <!--AND url like CONCAT('%','${url}','%' )-->
+        <!--</if>-->
+    <!--</where>-->
+    <!--limit #{begin},${end}-->
+
 </mapper>

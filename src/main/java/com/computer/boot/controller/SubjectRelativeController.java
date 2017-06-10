@@ -2,6 +2,7 @@ package com.computer.boot.controller;
 
 import com.computer.boot.model.Directory;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
+import com.computer.boot.vo.QueryQuestionVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -70,6 +71,25 @@ public class SubjectRelativeController {
                                                            @RequestParam(value = "directoryId") Long directoryId,
                                                            HttpServletRequest request) {
         return subjectDirectoryServiceFacade.getQuestionGroupBySubIdAndDirId(subjectId, directoryId);
+    }
+
+
+    /**
+     * 根据关键词进行模糊查询，分页返回查询列表
+     *
+     * @param pageStart
+     * @param pageSize
+     * @param keyWord
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/subject/queryQuestionListByKeyWord")
+    public QueryQuestionVo queryQuestionListByKeyWord(@RequestParam(value = "pageStart") int pageStart,
+                                                      @RequestParam(value = "pageSize") int pageSize,
+                                                      @RequestParam(value = "keyWord") String keyWord,
+                                                      HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.queryQuestionListByKeyWord(pageStart, pageSize, keyWord);
     }
 
 }

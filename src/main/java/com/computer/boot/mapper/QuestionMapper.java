@@ -17,6 +17,12 @@ public interface QuestionMapper {
                                                   @Param("questionType") String questionType);
 
     Long selectTotalNumber(@Param("subjectId") Long subjectId,
-                          @Param("directoryId") Long directoryId);
+                           @Param("directoryId") Long directoryId);
+
+    List<Question> queryQuestionListByKeyWord(@Param("pageStart") int pageStart,
+                                              @Param("pageSize") int pageSize,
+                                              @Param("keyWord") String keyWord);
+
+    Long queryTotalNumber(@Param("keyWord") String keyWord);
 
 }

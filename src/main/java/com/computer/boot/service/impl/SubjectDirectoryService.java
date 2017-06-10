@@ -7,6 +7,7 @@ import com.computer.boot.mapper.SubjectMapper;
 import com.computer.boot.model.*;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
 import com.computer.boot.vo.ChapterTreeVo;
+import com.computer.boot.vo.QueryQuestionVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.commons.lang3.StringUtils;
@@ -117,6 +118,31 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      */
     public List<Question> getQuestionListBySubDirAndType(Long subjectId, Long directoryId, QuestionType questionType) {
         return questionMapper.getQuestionListBySubDirAndType(subjectId, directoryId, questionType.name());
+    }
+
+
+    /**
+     * 根据关键词进行模糊查询，分页返回查询列表
+     *
+     * @param pageStart
+     * @param pageSize
+     * @param keyWord
+     * @return
+     */
+    public QueryQuestionVo queryQuestionListByKeyWord(int pageStart, int pageSize, String keyWord) {
+        QueryQuestionVo result = new QueryQuestionVo();
+        if (pageSize > 2000) {
+            pageSize = 2000;
+        }
+        result.setPageStart(pageStart);
+        result.setPageSize(pageSize);
+        if (StringUtils.isEmpty(keyWord)) {
+            result.setTotal(0L);
+            return result;
+        }
+        result.setQueryResult(questionMapper.queryQuestionListByKeyWord(pageStart, pageSize, keyWord));
+        result.setTotal(questionMapper.queryTotalNumber(keyWord));
+        return result;
     }
 
 
