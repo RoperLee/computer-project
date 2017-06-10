@@ -26,10 +26,10 @@
     </update>
 
     <select id="getHotKey" resultType="string">
-        SELECT KEY FROM COMPUTER_KEY
+        SELECT COMPUTER_KEY.KEY FROM COMPUTER_KEY
         WHERE IS_DELETED = 'N'
-        AND GMT_CREAT BETWEEN date_sub(now(),interval 6 month) and now();
-        ORDER BY COUNT DESC
+        AND GMT_CREAT BETWEEN date_sub(now(),interval 6 month) and now()
+        ORDER BY COMPUTER_KEY.COUNT DESC
         LIMIT 0,#{total}
     </select>
 
