@@ -3,7 +3,7 @@ package com.computer.boot.model;
 /**
  * Created by roper on 2017/6/10.
  */
-public class key extends BasicModelObject {
+public class Key extends BasicModelObject {
 
     private String key;
     private int count;

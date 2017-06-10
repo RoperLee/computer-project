@@ -9,20 +9,20 @@
     </resultMap>
 
     <insert id="insertNewKey">
-        INSERT INTO COMPUTER_KEY(id,gmt_creat,is_deleted,key,count)
+        INSERT INTO COMPUTER_KEY(ID,GMT_CREAT,IS_DELETED,COMPUTER_KEY.KEY,COMPUTER_KEY.COUNT)
         VALUES(null,null,'N',#{key},1)
     </insert>
 
     <update id="deleteKey">
         UPDATE COMPUTER_KEY
         SET IS_DELETED='Y'
-        WHERE KEY=#{key}
+        WHERE COMPUTER_KEY.KEY=#{key}
     </update>
 
     <update id="addCount">
         UPDATE COMPUTER_KEY
         SET COUNT = COUNT + #{offset}
-        WHERE KEY=#{key}
+        WHERE COMPUTER_KEY.KEY=#{key}
     </update>
 
     <select id="getHotKey" resultType="string">
@@ -35,7 +35,7 @@
 
     <select id="selectTotalNumber" resultType="long">
         SELECT COUNT(*) FROM COMPUTER_KEY
-        WHERE KEY = #{key}
+        WHERE COMPUTER_KEY.KEY = #{key}
         AND IS_DELETED = 'N'
     </select>
 
