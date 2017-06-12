@@ -3,8 +3,6 @@ package com.computer.boot.service;
 import com.computer.boot.model.HealthCheck;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * Created by roper on 2017/5/15.
  */
@@ -14,7 +12,5 @@ public interface HealthCheckServiceFacade {
     HealthCheck getUserById(int id);
 
     String getUserNameById(int id);
-
-    void showPic(HttpServletResponse response, String fileName);
 
 }
