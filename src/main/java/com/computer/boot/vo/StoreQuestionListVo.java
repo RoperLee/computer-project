@@ -7,10 +7,10 @@ import java.util.List;
 /**
  * Created by roper on 2017/6/12.
  */
-public class ErrorQuestionListVo {
+public class StoreQuestionListVo {
 
     private int total;
-    private List<Question> errorQuestionList;
+    private List<Question> storeQuestionList;
 
     public int getTotal() {
         return total;
@@ -20,11 +20,11 @@ public class ErrorQuestionListVo {
         this.total = total;
     }
 
-    public List<Question> getErrorQuestionList() {
-        return errorQuestionList;
+    public List<Question> getStoreQuestionList() {
+        return storeQuestionList;
     }
 
-    public void setErrorQuestionList(List<Question> errorQuestionList) {
-        this.errorQuestionList = errorQuestionList;
+    public void setStoreQuestionList(List<Question> storeQuestionList) {
+        this.storeQuestionList = storeQuestionList;
     }
 }

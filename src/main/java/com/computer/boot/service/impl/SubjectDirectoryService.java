@@ -34,7 +34,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
     @Autowired
     private KeyMapper keyMapper;
     @Autowired
-    private ErrorQuestionMapper errorQuestionMapper;
+    private StoreQuestionMapper storeQuestionMapper;
 
 
     /**
@@ -200,20 +200,20 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      * @param subjectId
      * @return
      */
-    public ErrorQuestionListVo getErrorQuestionList(Long userId, int subjectId) {
-        ErrorQuestionListVo result = new ErrorQuestionListVo();
-        ErrorQuestion error = errorQuestionMapper.getErrorQuestionListStr(userId, subjectId);
-        if (null == error || StringUtils.isBlank(error.getQuestionIdList())) {
+    public StoreQuestionListVo getStoreQuestionList(Long userId, int subjectId, String storeType) {
+        StoreQuestionListVo result = new StoreQuestionListVo();
+        StoreQuestion store = storeQuestionMapper.getStoreQuestionListStr(userId, subjectId, storeType);
+        if (null == store || StringUtils.isBlank(store.getQuestionIdList())) {
             return result;
         }
-        String[] errorIds = error.getQuestionIdList().split(",");
-        result.setTotal(errorIds.length);
+        String[] storeIds = store.getQuestionIdList().split(",");
+        result.setTotal(storeIds.length);
         List<Question> questionList = new ArrayList<>();
-        for (int i = 0; i < errorIds.length; i++) {
-            Question item = questionMapper.getQuestionById(Long.valueOf(errorIds[i]));
+        for (int i = 0; i < storeIds.length; i++) {
+            Question item = questionMapper.getQuestionById(Long.valueOf(storeIds[i]));
             questionList.add(item);
         }
-        result.setErrorQuestionList(questionList);
+        result.setStoreQuestionList(questionList);
         return result;
     }
 
@@ -225,17 +225,18 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      * @param questionId
      * @return
      */
-    public boolean addErrorQuestion(Long userId, int subjectId, Long questionId) {
-        ErrorQuestion error = errorQuestionMapper.getErrorQuestionListStr(userId, subjectId);
-        if (null == error) {
-            errorQuestionMapper.insertErrorQuestion(userId, subjectId, String.valueOf(questionId));
+    public boolean addStoreQuestion(Long userId, int subjectId, Long questionId, StoreType storeType) {
+
+        StoreQuestion store = storeQuestionMapper.getStoreQuestionListStr(userId, subjectId, storeType.name());
+        if (null == store) {
+            storeQuestionMapper.insertStoreQuestion(userId, subjectId, String.valueOf(questionId), storeType.name());
             return true;
         }
-        if (error.getQuestionIdList().contains(String.valueOf(questionId))) {
+        if (store.getQuestionIdList().contains(String.valueOf(questionId))) {
             return true;
         }
-        String newIdsStr = questionId + "," + error.getQuestionIdList();
-        errorQuestionMapper.updateQuestionIdList(userId, subjectId, newIdsStr);
+        String newIdsStr = questionId + "," + store.getQuestionIdList();
+        storeQuestionMapper.updateQuestionIdList(userId, subjectId, newIdsStr, storeType.name());
         return true;
     }
 
@@ -247,19 +248,19 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      * @param questionId
      * @return
      */
-    public boolean deleteErrorQuestion(Long userId, int subjectId, Long questionId) {
-        ErrorQuestion error = errorQuestionMapper.getErrorQuestionListStr(userId, subjectId);
-        if (null == error || StringUtils.isBlank(error.getQuestionIdList())) {
+    public boolean deleteStoreQuestion(Long userId, int subjectId, Long questionId, String storeType) {
+        StoreQuestion store = storeQuestionMapper.getStoreQuestionListStr(userId, subjectId, storeType);
+        if (null == store || StringUtils.isBlank(store.getQuestionIdList())) {
             return true;
         }
-        String[] errorIds = error.getQuestionIdList().split(",");
+        String[] storeIds = store.getQuestionIdList().split(",");
         List<String> afterIds = new ArrayList<>();
-        for (int i = 0; i < errorIds.length; i++) {
-            if (!String.valueOf(questionId).equalsIgnoreCase(errorIds[i])) {
-                afterIds.add(errorIds[i]);
+        for (int i = 0; i < storeIds.length; i++) {
+            if (!String.valueOf(questionId).equalsIgnoreCase(storeIds[i])) {
+                afterIds.add(storeIds[i]);
             }
         }
-        errorQuestionMapper.updateQuestionIdList(userId, subjectId, StringUtils.join(afterIds.toArray(), ","));
+        storeQuestionMapper.updateQuestionIdList(userId, subjectId, StringUtils.join(afterIds.toArray(), ","), storeType);
         return true;
     }
 

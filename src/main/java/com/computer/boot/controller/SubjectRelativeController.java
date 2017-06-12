@@ -1,8 +1,9 @@
 package com.computer.boot.controller;
 
 import com.computer.boot.model.Directory;
+import com.computer.boot.model.StoreType;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
-import com.computer.boot.vo.ErrorQuestionListVo;
+import com.computer.boot.vo.StoreQuestionListVo;
 import com.computer.boot.vo.QueryQuestionVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
@@ -151,7 +152,7 @@ public class SubjectRelativeController {
     }
 
     /**
-     * 获取指定 userId 和 subjectId 下的错题集合
+     * 获取指定 userId 和 subjectId 下的错题/收藏题集合
      *
      * @param userId
      * @param subjectId
@@ -159,15 +160,16 @@ public class SubjectRelativeController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/subject/getErrorQuestionList")
-    public ErrorQuestionListVo getErrorQuestionList(@RequestParam(value = "userId") Long userId,
+    @RequestMapping(value = "/subject/getStoreQuestionList")
+    public StoreQuestionListVo getStoreQuestionList(@RequestParam(value = "userId") Long userId,
                                                     @RequestParam(value = "subjectId") int subjectId,
+                                                    @RequestParam(value = "storeType") String storeType,
                                                     HttpServletRequest request) {
-        return subjectDirectoryServiceFacade.getErrorQuestionList(userId, subjectId);
+        return subjectDirectoryServiceFacade.getStoreQuestionList(userId, subjectId, storeType);
     }
 
     /**
-     * 添加一道错题
+     * 添加一道错题／收藏题
      *
      * @param userId
      * @param subjectId
@@ -176,16 +178,17 @@ public class SubjectRelativeController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/subject/addErrorQuestion")
-    public boolean addErrorQuestion(@RequestParam(value = "userId") Long userId,
+    @RequestMapping(value = "/subject/addStoreQuestion")
+    public boolean addStoreQuestion(@RequestParam(value = "userId") Long userId,
                                     @RequestParam(value = "subjectId") int subjectId,
                                     @RequestParam(value = "questionId") Long questionId,
+                                    @RequestParam(value = "storeType") StoreType storeType,
                                     HttpServletRequest request) {
-        return subjectDirectoryServiceFacade.addErrorQuestion(userId, subjectId, questionId);
+        return subjectDirectoryServiceFacade.addStoreQuestion(userId, subjectId, questionId, storeType);
     }
 
     /**
-     * 删除一道错题
+     * 删除一道错题／收藏题
      *
      * @param userId
      * @param subjectId
@@ -194,12 +197,13 @@ public class SubjectRelativeController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/subject/deleteErrorQuestion")
-    public boolean deleteErrorQuestion(@RequestParam(value = "userId") Long userId,
+    @RequestMapping(value = "/subject/deleteStoreQuestion")
+    public boolean deleteStoreQuestion(@RequestParam(value = "userId") Long userId,
                                        @RequestParam(value = "subjectId") int subjectId,
                                        @RequestParam(value = "questionId") Long questionId,
+                                       @RequestParam(value = "storeType") String storeType,
                                        HttpServletRequest request) {
-        return subjectDirectoryServiceFacade.deleteErrorQuestion(userId, subjectId, questionId);
+        return subjectDirectoryServiceFacade.deleteStoreQuestion(userId, subjectId, questionId, storeType);
     }
 
 

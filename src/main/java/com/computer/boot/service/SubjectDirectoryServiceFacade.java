@@ -1,7 +1,8 @@
 package com.computer.boot.service;
 
 import com.computer.boot.model.Directory;
-import com.computer.boot.vo.ErrorQuestionListVo;
+import com.computer.boot.model.StoreType;
+import com.computer.boot.vo.StoreQuestionListVo;
 import com.computer.boot.vo.QueryQuestionVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
@@ -91,7 +92,7 @@ public interface SubjectDirectoryServiceFacade {
      * @param subjectId
      * @return
      */
-    ErrorQuestionListVo getErrorQuestionList(Long userId, int subjectId);
+    StoreQuestionListVo getStoreQuestionList(Long userId, int subjectId, String storeType);
 
     /**
      * 添加一道错题
@@ -101,7 +102,7 @@ public interface SubjectDirectoryServiceFacade {
      * @param questionId
      * @return
      */
-    boolean addErrorQuestion(Long userId, int subjectId, Long questionId);
+    boolean addStoreQuestion(Long userId, int subjectId, Long questionId, StoreType storeType);
 
     /**
      * 删除一道错题
@@ -111,6 +112,6 @@ public interface SubjectDirectoryServiceFacade {
      * @param questionId
      * @return
      */
-    boolean deleteErrorQuestion(Long userId, int subjectId, Long questionId);
+    boolean deleteStoreQuestion(Long userId, int subjectId, Long questionId, String storeType);
 
 }
