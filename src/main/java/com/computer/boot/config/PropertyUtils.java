@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "image")
 @PropertySource("classpath:application.properties")
-public class ImageConfig {
+public class PropertyUtils {
 
     private String imagePath;
 
