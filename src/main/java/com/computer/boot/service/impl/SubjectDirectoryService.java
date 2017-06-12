@@ -3,10 +3,7 @@ package com.computer.boot.service.impl;
 import com.computer.boot.mapper.*;
 import com.computer.boot.model.*;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
-import com.computer.boot.vo.ChapterTreeVo;
-import com.computer.boot.vo.QueryQuestionVo;
-import com.computer.boot.vo.QuestionGroupVo;
-import com.computer.boot.vo.SubjectChapterTreeVo;
+import com.computer.boot.vo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +33,8 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
     private QuestionMapper questionMapper;
     @Autowired
     private KeyMapper keyMapper;
+    @Autowired
+    private ErrorQuestionMapper errorQuestionMapper;
 
 
     /**
@@ -194,6 +193,75 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         return true;
     }
 
+    /**
+     * 获取指定 userId 和 subjectId 下的错题集合
+     *
+     * @param userId
+     * @param subjectId
+     * @return
+     */
+    public ErrorQuestionListVo getErrorQuestionList(Long userId, int subjectId) {
+        ErrorQuestionListVo result = new ErrorQuestionListVo();
+        ErrorQuestion error = errorQuestionMapper.getErrorQuestionListStr(userId, subjectId);
+        if (null == error || StringUtils.isBlank(error.getQuestionIdList())) {
+            return result;
+        }
+        String[] errorIds = error.getQuestionIdList().split(",");
+        result.setTotal(errorIds.length);
+        List<Question> questionList = new ArrayList<>();
+        for (int i = 0; i < errorIds.length; i++) {
+            Question item = questionMapper.getQuestionById(Long.valueOf(errorIds[i]));
+            questionList.add(item);
+        }
+        result.setErrorQuestionList(questionList);
+        return result;
+    }
+
+    /**
+     * 添加一道错题
+     *
+     * @param userId
+     * @param subjectId
+     * @param questionId
+     * @return
+     */
+    public boolean addErrorQuestion(Long userId, int subjectId, Long questionId) {
+        ErrorQuestion error = errorQuestionMapper.getErrorQuestionListStr(userId, subjectId);
+        if (null == error) {
+            errorQuestionMapper.insertErrorQuestion(userId, subjectId, String.valueOf(questionId));
+            return true;
+        }
+        if (error.getQuestionIdList().contains(String.valueOf(questionId))) {
+            return true;
+        }
+        String newIdsStr = questionId + "," + error.getQuestionIdList();
+        errorQuestionMapper.updateQuestionIdList(userId, subjectId, newIdsStr);
+        return true;
+    }
+
+    /**
+     * 删除一道错题
+     *
+     * @param userId
+     * @param subjectId
+     * @param questionId
+     * @return
+     */
+    public boolean deleteErrorQuestion(Long userId, int subjectId, Long questionId) {
+        ErrorQuestion error = errorQuestionMapper.getErrorQuestionListStr(userId, subjectId);
+        if (null == error || StringUtils.isBlank(error.getQuestionIdList())) {
+            return true;
+        }
+        String[] errorIds = error.getQuestionIdList().split(",");
+        List<String> afterIds = new ArrayList<>();
+        for (int i = 0; i < errorIds.length; i++) {
+            if (!String.valueOf(questionId).equalsIgnoreCase(errorIds[i])) {
+                afterIds.add(errorIds[i]);
+            }
+        }
+        errorQuestionMapper.updateQuestionIdList(userId, subjectId, StringUtils.join(afterIds.toArray(), ","));
+        return true;
+    }
 
 }
 

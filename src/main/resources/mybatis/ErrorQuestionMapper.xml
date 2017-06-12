@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computer.boot.mapper.ErrorQuestionMapper">
+
+    <resultMap type="com.computer.boot.model.ErrorQuestion" id="ErrorQuestion">
+        <result property="id" column="ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="subjectId" column="SUBJECT_ID"/>
+        <result property="questionIdList" column="QUESTION_ID_LIST"/>
+    </resultMap>
+
+    <select id="getErrorQuestionListStr" resultMap="ErrorQuestion">
+        SELECT * FROM COMPUTER_ERROR_QUESTION
+        WHERE SUBJECT_ID = #{subjectId}
+        AND USER_ID = #{userId}
+        AND IS_DELETED = 'N'
+    </select>
+
+    <update id="updateQuestionIdList">
+        UPDATE COMPUTER_ERROR_QUESTION
+        SET QUESTION_ID_LIST=#{questionIdList}
+        WHERE USER_ID = #{userId}
+        AND SUBJECT_ID = #{subjectId}
+        AND IS_DELETED='N'
+    </update>
+
+    <insert id="insertErrorQuestion">
+        INSERT INTO COMPUTER_ERROR_QUESTION(ID,GMT_CREAT,IS_DELETED,USER_ID,SUBJECT_ID,QUESTION_ID_LIST)
+        VALUES(null,null,'N',#{userId},#{subjectId},#{questionIdList})
+    </insert>
+
+</mapper>

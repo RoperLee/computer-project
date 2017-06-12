@@ -50,14 +50,20 @@
         </where>
     </select>
 
+    <select id="getQuestionById" resultMap="Question">
+        SELECT * FROM COMPUTER_QUESTION
+        WHERE ID = #{id}
+        AND IS_DELETED = 'N'
+    </select>
+
     <!--SELECT * FROM t_app-->
     <!--<where>-->
-        <!--<if test="name != null">-->
-            <!--name like CONCAT('%','${name}','%' )-->
-        <!--</if>-->
-        <!--<if test="url != null">-->
-            <!--AND url like CONCAT('%','${url}','%' )-->
-        <!--</if>-->
+    <!--<if test="name != null">-->
+    <!--name like CONCAT('%','${name}','%' )-->
+    <!--</if>-->
+    <!--<if test="url != null">-->
+    <!--AND url like CONCAT('%','${url}','%' )-->
+    <!--</if>-->
     <!--</where>-->
     <!--limit #{begin},${end}-->
 

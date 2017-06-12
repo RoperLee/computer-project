@@ -25,4 +25,6 @@ public interface QuestionMapper {
 
     Long queryTotalNumber(@Param("keyWord") String keyWord);
 
+    Question getQuestionById(@Param("id") Long id);
+
 }

@@ -2,6 +2,7 @@ package com.computer.boot.controller;
 
 import com.computer.boot.model.Directory;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
+import com.computer.boot.vo.ErrorQuestionListVo;
 import com.computer.boot.vo.QueryQuestionVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
@@ -147,6 +148,58 @@ public class SubjectRelativeController {
                                @RequestParam(value = "offset") int offset,
                                HttpServletRequest request) {
         return subjectDirectoryServiceFacade.addKeyCount(key, offset);
+    }
+
+    /**
+     * 获取指定 userId 和 subjectId 下的错题集合
+     *
+     * @param userId
+     * @param subjectId
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/subject/getErrorQuestionList")
+    public ErrorQuestionListVo getErrorQuestionList(@RequestParam(value = "userId") Long userId,
+                                                    @RequestParam(value = "subjectId") int subjectId,
+                                                    HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.getErrorQuestionList(userId, subjectId);
+    }
+
+    /**
+     * 添加一道错题
+     *
+     * @param userId
+     * @param subjectId
+     * @param questionId
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/subject/addErrorQuestion")
+    public boolean addErrorQuestion(@RequestParam(value = "userId") Long userId,
+                                    @RequestParam(value = "subjectId") int subjectId,
+                                    @RequestParam(value = "questionId") Long questionId,
+                                    HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.addErrorQuestion(userId, subjectId, questionId);
+    }
+
+    /**
+     * 删除一道错题
+     *
+     * @param userId
+     * @param subjectId
+     * @param questionId
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/subject/deleteErrorQuestion")
+    public boolean deleteErrorQuestion(@RequestParam(value = "userId") Long userId,
+                                       @RequestParam(value = "subjectId") int subjectId,
+                                       @RequestParam(value = "questionId") Long questionId,
+                                       HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.deleteErrorQuestion(userId, subjectId, questionId);
     }
 
 

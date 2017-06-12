@@ -1,6 +1,7 @@
 package com.computer.boot.service;
 
 import com.computer.boot.model.Directory;
+import com.computer.boot.vo.ErrorQuestionListVo;
 import com.computer.boot.vo.QueryQuestionVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
@@ -82,5 +83,34 @@ public interface SubjectDirectoryServiceFacade {
      * @return
      */
     boolean addKeyCount(String key, int offset);
+
+    /**
+     * 获取指定 userId 和 subjectId 下的错题集合
+     *
+     * @param userId
+     * @param subjectId
+     * @return
+     */
+    ErrorQuestionListVo getErrorQuestionList(Long userId, int subjectId);
+
+    /**
+     * 添加一道错题
+     *
+     * @param userId
+     * @param subjectId
+     * @param questionId
+     * @return
+     */
+    boolean addErrorQuestion(Long userId, int subjectId, Long questionId);
+
+    /**
+     * 删除一道错题
+     *
+     * @param userId
+     * @param subjectId
+     * @param questionId
+     * @return
+     */
+    boolean deleteErrorQuestion(Long userId, int subjectId, Long questionId);
 
 }
