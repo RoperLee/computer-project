@@ -42,6 +42,7 @@ public class HealthCheckService implements HealthCheckServiceFacade {
     public void showPic(HttpServletResponse response, String fileName) {
 
         String fileUrl = propertyUtils.getImagePath() + fileName;
+        String[] imageFormat = fileName.split("\\.");
         try {
             File filePath = new File(fileUrl);
             if (filePath.exists()) {
@@ -52,6 +53,7 @@ public class HealthCheckService implements HealthCheckServiceFacade {
                 inputStream.read(data);
                 inputStream.close();
                 //写图片
+                response.setContentType("image/" + imageFormat[1]);
                 response.setCharacterEncoding("UTF-8");
                 OutputStream stream = new BufferedOutputStream(response.getOutputStream());
                 stream.write(data);
