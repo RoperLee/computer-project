@@ -9,5 +9,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Service
 public interface UtilServiceFacade {
+
     void showPic(HttpServletResponse response, String fileName);
+
+    int getExamDate();
 }

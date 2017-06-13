@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computer.boot.mapper.ExamDateMapper">
+
+    <resultMap type="com.computer.boot.model.ExamDate" id="ExamDate">
+        <result property="id" column="ID"/>
+        <result property="examDate" column="EXAM_DATE"/>
+    </resultMap>
+
+    <select id="getExamDate" resultMap="ExamDate">
+        SELECT * FROM COMPUTER_EXAM_DATE
+        WHERE IS_DELETED = 'N'
+        LIMIT 0,1
+    </select>
+
+
+</mapper>

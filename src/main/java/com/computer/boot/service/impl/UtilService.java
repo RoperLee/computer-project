@@ -1,6 +1,8 @@
 package com.computer.boot.service.impl;
 
 import com.computer.boot.config.PropertyUtils;
+import com.computer.boot.mapper.ExamDateMapper;
+import com.computer.boot.model.ExamDate;
 import com.computer.boot.service.UtilServiceFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.util.Date;
 
 /**
  * Created by roper on 2017/5/15.
@@ -23,6 +26,8 @@ public class UtilService implements UtilServiceFacade {
 
     @Autowired
     private PropertyUtils propertyUtils;
+    @Autowired
+    private ExamDateMapper examDateMapper;
 
     @Override
     public void showPic(HttpServletResponse response, String fileName) {
@@ -49,5 +54,11 @@ public class UtilService implements UtilServiceFacade {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int getExamDate() {
+        ExamDate examDate = examDateMapper.getExamDate();
+        return (int) ((examDate.getExamDate().getTime() - new Date().getTime()) / (1000 * 3600 * 24));
     }
 }

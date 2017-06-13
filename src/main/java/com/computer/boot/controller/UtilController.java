@@ -36,4 +36,10 @@ public class UtilController {
                         HttpServletRequest request, HttpServletResponse response) {
         utilServiceFacade.showPic(response, fileName);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/date/getExamDate")
+    public int getExamDate(HttpServletRequest request, HttpServletResponse response) {
+        return utilServiceFacade.getExamDate();
+    }
 }
