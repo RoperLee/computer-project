@@ -2,8 +2,10 @@ package com.computer.boot.service.impl;
 
 import com.computer.boot.config.PropertyUtils;
 import com.computer.boot.mapper.ExamDateMapper;
+import com.computer.boot.mapper.UserMapper;
 import com.computer.boot.model.ExamDate;
 import com.computer.boot.service.UtilServiceFacade;
+import com.computer.boot.vo.RankListVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class UtilService implements UtilServiceFacade {
     private PropertyUtils propertyUtils;
     @Autowired
     private ExamDateMapper examDateMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public void showPic(HttpServletResponse response, String fileName) {
@@ -60,5 +64,16 @@ public class UtilService implements UtilServiceFacade {
     public int getExamDate() {
         ExamDate examDate = examDateMapper.getExamDate();
         return (int) ((examDate.getExamDate().getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+    }
+
+    @Override
+    public RankListVo getRankList(Long userId, int pageStart, int pageSize) {
+        RankListVo result = new RankListVo();
+        if (null == userId) {
+            return result;
+        }
+        result.setSelf(userMapper.getUserRanking(userId));
+        result.setAllUserList(userMapper.queryUserRankingList(pageStart, pageSize));
+        return result;
     }
 }

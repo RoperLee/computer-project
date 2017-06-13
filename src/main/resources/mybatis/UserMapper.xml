@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computer.boot.mapper.UserMapper">
+
+    <resultMap type="com.computer.boot.model.User" id="User">
+        <result property="id" column="ID"/>
+        <result property="openId" column="OPEN_ID"/>
+        <result property="thirdPlatform" column="THIRD_PLATFORM"/>
+        <result property="headImgUrl" column="HEAD_IMG_URL"/>
+        <result property="sex" column="SEX"/>
+        <result property="name" column="NAME"/>
+        <result property="questionCount" column="QUESTION_COUNT"/>
+        <result property="ranking" column="RANKING"/>
+    </resultMap>
+
+    <select id="getUserRanking" resultMap="User">
+        SET @ranking=0;
+        SELECT * FROM (
+          SELECT *,@ranking:=@ranking+1 AS RANKING
+          FROM COMPUTER_USER
+          ORDER BY QUESTION_COUNT DESC)
+        AS RESULT WHERE RESULT.ID = #{userId};
+    </select>
+
+    <select id="queryUserRankingList" resultMap="User">
+        SET @ranking=0;
+        SELECT *,@ranking:=@ranking+1 AS RANKING
+        FROM COMPUTER_USER
+        ORDER BY QUESTION_COUNT DESC
+        LIMIT #{pageStart},#{pageSize}
+    </select>
+
+</mapper>

@@ -1,6 +1,7 @@
 package com.computer.boot.controller;
 
 import com.computer.boot.service.UtilServiceFacade;
+import com.computer.boot.vo.RankListVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,4 +50,16 @@ public class UtilController {
     public int getExamDate(HttpServletRequest request, HttpServletResponse response) {
         return utilServiceFacade.getExamDate();
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/rank/getRankList")
+    public RankListVo getRankList(@RequestParam("userId") Long userId,
+                                  @RequestParam("pageStart") int pageStart,
+                                  @RequestParam("pageSize") int pageSize,
+                                  HttpServletRequest request, HttpServletResponse response) {
+        return utilServiceFacade.getRankList(userId, pageStart, pageSize);
+    }
+
+
 }
