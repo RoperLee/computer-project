@@ -37,6 +37,13 @@ public class UtilController {
         utilServiceFacade.showPic(response, fileName);
     }
 
+    /**
+     * 距离考试剩余的天数
+     *
+     * @param request
+     * @param response
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/date/getExamDate")
     public int getExamDate(HttpServletRequest request, HttpServletResponse response) {
