@@ -14,19 +14,19 @@
     </resultMap>
 
     <select id="getUserRanking" resultMap="User">
-        SET @ranking=0;
-        SELECT * FROM (
-          SELECT *,@ranking:=@ranking+1 AS RANKING
-          FROM COMPUTER_USER
-          ORDER BY QUESTION_COUNT DESC)
-        AS RESULT WHERE RESULT.ID = #{userId};
+        SELECT mine.* , (
+          SELECT COUNT(1) FROM  COMPUTER_USER
+          WHERE QUESTION_COUNT >  mine.QUESTION_COUNT)+1 AS RANKING
+        FROM COMPUTER_USER AS  mine
+        WHERE mine.ID = #{userId};
     </select>
 
     <select id="queryUserRankingList" resultMap="User">
-        SET @ranking=0;
-        SELECT *,@ranking:=@ranking+1 AS RANKING
-        FROM COMPUTER_USER
-        ORDER BY QUESTION_COUNT DESC
+        SELECT mine.* , (
+          SELECT COUNT(1) FROM  COMPUTER_USER
+          WHERE QUESTION_COUNT >  mine.QUESTION_COUNT)+1 AS RANKING
+        FROM COMPUTER_USER AS  mine
+        ORDER BY RANKING
         LIMIT #{pageStart},#{pageSize}
     </select>
 

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class RankListVo {
     private User self;
-    private List<User> allUserList;
+    private List<User> userList;
 
     public User getSelf() {
         return self;
@@ -19,11 +19,11 @@ public class RankListVo {
         this.self = self;
     }
 
-    public List<User> getAllUserList() {
-        return allUserList;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setAllUserList(List<User> allUserList) {
-        this.allUserList = allUserList;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }
