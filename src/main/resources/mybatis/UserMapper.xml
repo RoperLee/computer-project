@@ -30,4 +30,10 @@
         LIMIT #{pageStart},#{pageSize}
     </select>
 
+    <update id="addExecuteQuestionCount">
+        UPDATE COMPUTER_USER
+        SET QUESTION_COUNT = QUESTION_COUNT + #{count}
+        WHERE ID=#{userId}
+    </update>
+
 </mapper>

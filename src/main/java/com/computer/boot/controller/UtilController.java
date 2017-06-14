@@ -52,6 +52,16 @@ public class UtilController {
     }
 
 
+    /**
+     * 查询排名
+     *
+     * @param userId
+     * @param pageStart
+     * @param pageSize
+     * @param request
+     * @param response
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/rank/getRankList")
     public RankListVo getRankList(@RequestParam("userId") Long userId,
@@ -59,6 +69,14 @@ public class UtilController {
                                   @RequestParam("pageSize") int pageSize,
                                   HttpServletRequest request, HttpServletResponse response) {
         return utilServiceFacade.getRankList(userId, pageStart, pageSize);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/rank/addExecuteQuestionCount")
+    public boolean addExecuteQuestionCount(@RequestParam("userId") Long userId,
+                                           @RequestParam("count") int count,
+                                           HttpServletRequest request, HttpServletResponse response) {
+        return utilServiceFacade.addExecuteQuestionCount(userId, count);
     }
 
 

@@ -73,7 +73,16 @@ public class UtilService implements UtilServiceFacade {
             return result;
         }
         result.setSelf(userMapper.getUserRanking(userId));
-        result.setAllUserList(userMapper.queryUserRankingList(pageStart, pageSize));
+        result.setUserList(userMapper.queryUserRankingList(pageStart, pageSize));
         return result;
+    }
+
+    @Override
+    public boolean addExecuteQuestionCount(Long userId, int count) {
+        if (null == userId) {
+            return false;
+        }
+        userMapper.addExecuteQuestionCount(userId, count);
+        return true;
     }
 }

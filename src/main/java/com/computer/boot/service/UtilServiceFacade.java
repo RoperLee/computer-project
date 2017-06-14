@@ -16,4 +16,6 @@ public interface UtilServiceFacade {
     int getExamDate();
 
     RankListVo getRankList(Long userId, int pageStart, int pageSize);
+
+    boolean addExecuteQuestionCount(Long userId, int count);
 }

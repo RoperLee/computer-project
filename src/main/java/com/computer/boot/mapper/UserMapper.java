@@ -17,4 +17,7 @@ public interface UserMapper {
     List<User> queryUserRankingList(@Param("pageStart") int pageStart,
                                     @Param("pageSize") int pageSize);
 
+    void addExecuteQuestionCount(@Param("userId") Long userId,
+                                 @Param("count") int count);
+
 }
