@@ -1,6 +1,7 @@
 package com.computer.boot.controller;
 
 import com.computer.boot.service.UtilServiceFacade;
+import com.computer.boot.vo.LastDateVo;
 import com.computer.boot.vo.RankListVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -48,7 +49,7 @@ public class UtilController {
      */
     @ResponseBody
     @RequestMapping(value = "/date/getExamDate")
-    public int getExamDate(HttpServletRequest request, HttpServletResponse response) {
+    public LastDateVo getExamDate(HttpServletRequest request, HttpServletResponse response) {
         return utilServiceFacade.getExamDate();
     }
 

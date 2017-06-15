@@ -1,5 +1,6 @@
 package com.computer.boot.service;
 
+import com.computer.boot.vo.LastDateVo;
 import com.computer.boot.vo.RankListVo;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public interface UtilServiceFacade {
 
     void showPic(HttpServletResponse response, String fileName);
 
-    int getExamDate();
+    LastDateVo getExamDate();
 
     RankListVo getRankList(Long userId, int pageStart, int pageSize);
 

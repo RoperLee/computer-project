@@ -6,6 +6,7 @@ import com.computer.boot.mapper.ExamDateMapper;
 import com.computer.boot.mapper.UserMapper;
 import com.computer.boot.model.ExamDate;
 import com.computer.boot.service.UtilServiceFacade;
+import com.computer.boot.vo.LastDateVo;
 import com.computer.boot.vo.RankListVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,9 +67,17 @@ public class UtilService implements UtilServiceFacade {
     }
 
     @Override
-    public int getExamDate() {
+    public LastDateVo getExamDate() {
         ExamDate examDate = examDateMapper.getExamDate();
-        return (int) ((examDate.getExamDate().getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+        int date = (int) ((examDate.getExamDate().getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+        LastDateVo result = new LastDateVo();
+        int one = date / 100;
+        int two = (date - one * 100) / 10;
+        int three = date - one * 100 - two * 10;
+        result.setOne(one);
+        result.setTwo(two);
+        result.setThree(three);
+        return result;
     }
 
     @Override
