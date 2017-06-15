@@ -1,6 +1,7 @@
 package com.computer.boot.service.impl;
 
-import com.computer.boot.config.PropertyUtils;
+import com.computer.boot.config.ImagePropertyUtils;
+import com.computer.boot.config.ServicePropertyUtils;
 import com.computer.boot.mapper.ExamDateMapper;
 import com.computer.boot.mapper.UserMapper;
 import com.computer.boot.model.ExamDate;
@@ -16,7 +17,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by roper on 2017/5/15.
@@ -27,16 +30,18 @@ public class UtilService implements UtilServiceFacade {
     private static final Logger logger = LoggerFactory.getLogger(UtilService.class);
 
     @Autowired
-    private PropertyUtils propertyUtils;
+    private ImagePropertyUtils imagePropertyUtils;
     @Autowired
     private ExamDateMapper examDateMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private ServicePropertyUtils servicePropertyUtils;
 
     @Override
     public void showPic(HttpServletResponse response, String fileName) {
 
-        String fileUrl = propertyUtils.getImagePath() + fileName;
+        String fileUrl = imagePropertyUtils.getImagePath() + fileName;
         String[] imageFormat = fileName.split("\\.");
         try {
             File filePath = new File(fileUrl);
@@ -84,5 +89,17 @@ public class UtilService implements UtilServiceFacade {
         }
         userMapper.addExecuteQuestionCount(userId, count);
         return true;
+    }
+
+    @Override
+    public List<String> getBanner() {
+        String ip = servicePropertyUtils.getAddress();
+        String port = servicePropertyUtils.getPort();
+        List<String> bannerList = new ArrayList<>();
+        String IMAGE_PATH = ip + ":" + port + "/image/showPic?fileName=";
+        bannerList.add(IMAGE_PATH + "banner_1.png");
+        bannerList.add(IMAGE_PATH + "banner_2.png");
+        bannerList.add(IMAGE_PATH + "banner_3.png");
+        return bannerList;
     }
 }

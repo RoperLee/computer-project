@@ -4,6 +4,7 @@ import com.computer.boot.vo.RankListVo;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by roper on 2017/5/15.
@@ -18,4 +19,6 @@ public interface UtilServiceFacade {
     RankListVo getRankList(Long userId, int pageStart, int pageSize);
 
     boolean addExecuteQuestionCount(Long userId, int count);
+
+    List<String> getBanner();
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by roper on 2017/6/12.
@@ -71,12 +72,27 @@ public class UtilController {
         return utilServiceFacade.getRankList(userId, pageStart, pageSize);
     }
 
+    /**
+     * 给某个用户的做题数增加count
+     *
+     * @param userId
+     * @param count
+     * @param request
+     * @param response
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/rank/addExecuteQuestionCount")
     public boolean addExecuteQuestionCount(@RequestParam("userId") Long userId,
                                            @RequestParam("count") int count,
                                            HttpServletRequest request, HttpServletResponse response) {
         return utilServiceFacade.addExecuteQuestionCount(userId, count);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getBanner")
+    public List<String> getBanner(HttpServletRequest request, HttpServletResponse response) {
+        return utilServiceFacade.getBanner();
     }
 
 

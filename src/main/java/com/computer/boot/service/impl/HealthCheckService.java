@@ -1,6 +1,5 @@
 package com.computer.boot.service.impl;
 
-import com.computer.boot.config.PropertyUtils;
 import com.computer.boot.mapper.HealthCheckMapper;
 import com.computer.boot.model.HealthCheck;
 import com.computer.boot.service.HealthCheckServiceFacade;
@@ -18,9 +17,6 @@ public class HealthCheckService implements HealthCheckServiceFacade {
     private static final Logger logger = LoggerFactory.getLogger(SubjectDirectoryService.class);
     @Autowired
     HealthCheckMapper healthCheckMapper;
-    @Autowired
-    private PropertyUtils propertyUtils;
-
 
     @Override
     public HealthCheck getUserById(int id) {
