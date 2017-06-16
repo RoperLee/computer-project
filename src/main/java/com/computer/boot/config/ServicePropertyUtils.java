@@ -14,7 +14,7 @@ public class ServicePropertyUtils {
 
     private String address;
     private String port;
-    private String host;
+    private String dns;
 
     public String getAddress() {
         return address;
@@ -32,11 +32,11 @@ public class ServicePropertyUtils {
         this.port = port;
     }
 
-    public String getHost() {
-        return host;
+    public String getDns() {
+        return dns;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setDns(String dns) {
+        this.dns = dns;
     }
 }
