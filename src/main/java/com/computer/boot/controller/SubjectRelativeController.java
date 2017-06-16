@@ -4,7 +4,6 @@ import com.computer.boot.model.Directory;
 import com.computer.boot.model.StoreType;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
 import com.computer.boot.vo.QuestionGroupVo;
-import com.computer.boot.vo.StoreQuestionListVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -161,7 +160,7 @@ public class SubjectRelativeController {
      */
     @ResponseBody
     @RequestMapping(value = "/subject/getStoreQuestionList")
-    public StoreQuestionListVo getStoreQuestionList(@RequestParam(value = "userId") Long userId,
+    public QuestionGroupVo getStoreQuestionList(@RequestParam(value = "userId") Long userId,
                                                     @RequestParam(value = "subjectId") int subjectId,
                                                     @RequestParam(value = "storeType") String storeType,
                                                     HttpServletRequest request) {

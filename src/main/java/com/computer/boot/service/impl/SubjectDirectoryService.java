@@ -226,20 +226,33 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      * @param subjectId
      * @return
      */
-    public StoreQuestionListVo getStoreQuestionList(Long userId, int subjectId, String storeType) {
-        StoreQuestionListVo result = new StoreQuestionListVo();
+    public QuestionGroupVo getStoreQuestionList(Long userId, int subjectId, String storeType) {
+        QuestionGroupVo result = new QuestionGroupVo();
         StoreQuestion store = storeQuestionMapper.getStoreQuestionListStr(userId, subjectId, storeType);
         if (null == store || StringUtils.isBlank(store.getQuestionIdList())) {
             return result;
         }
         String[] storeIds = store.getQuestionIdList().split(",");
-        result.setTotal(storeIds.length);
-        List<Question> questionList = new ArrayList<>();
+        result.setTotal(Long.valueOf(storeIds.length));
+        List<QuestionVo> choiceList = new ArrayList<>();
+        List<QuestionVo> blankList = new ArrayList<>();
+        List<QuestionVo> operateList = new ArrayList<>();
         for (int i = 0; i < storeIds.length; i++) {
             Question item = questionMapper.getQuestionById(Long.valueOf(storeIds[i]));
-            questionList.add(item);
+            QuestionVo vo = utilService.parseQuestion2QuestionVo(item);
+            if (QuestionType.CHOICE.name().equalsIgnoreCase(item.getQuestionType())) {
+                choiceList.add(vo);
+            } else if (QuestionType.BLANK.name().equalsIgnoreCase(item.getQuestionType())) {
+                blankList.add(vo);
+            } else {
+                operateList.add(vo);
+            }
         }
-        result.setStoreQuestionList(questionList);
+        List<List<QuestionVo>> xList = new ArrayList<>();
+        xList.add(choiceList);
+        xList.add(blankList);
+        xList.add(operateList);
+        result.setQuestionList(xList);
         return result;
     }
 

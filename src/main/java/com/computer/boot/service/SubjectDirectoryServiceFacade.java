@@ -2,7 +2,6 @@ package com.computer.boot.service;
 
 import com.computer.boot.model.Directory;
 import com.computer.boot.model.StoreType;
-import com.computer.boot.vo.StoreQuestionListVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.springframework.stereotype.Service;
@@ -91,7 +90,7 @@ public interface SubjectDirectoryServiceFacade {
      * @param subjectId
      * @return
      */
-    StoreQuestionListVo getStoreQuestionList(Long userId, int subjectId, String storeType);
+    QuestionGroupVo getStoreQuestionList(Long userId, int subjectId, String storeType);
 
     /**
      * 添加一道错题
