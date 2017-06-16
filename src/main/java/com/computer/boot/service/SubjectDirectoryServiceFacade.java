@@ -30,7 +30,7 @@ public interface SubjectDirectoryServiceFacade {
      * @param issueKind 真题：Exam, 模拟题：Simulate
      * @return
      */
-    List<Directory> getIssueDirBySubjectIdAndKind(Long subjectId, String issueKind);
+    List<Directory> getIssueDirBySubjectIdAndKind(Long subjectId, int issueKind);
 
     /**
      * 获取某个Director下的所有题目，并按questionType分好组

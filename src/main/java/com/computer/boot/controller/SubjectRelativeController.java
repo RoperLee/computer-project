@@ -4,7 +4,6 @@ import com.computer.boot.model.Directory;
 import com.computer.boot.model.StoreType;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
 import com.computer.boot.vo.QuestionGroupVo;
-import com.computer.boot.vo.QuestionVo;
 import com.computer.boot.vo.StoreQuestionListVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -37,7 +36,7 @@ public class SubjectRelativeController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/subject/getChapterTreeBySubjectId")
+    @RequestMapping(value = "/getOfficialBook")
     public SubjectChapterTreeVo getChapterBySubjectId(@RequestParam(value = "subjectId") Long subjectId,
                                                       HttpServletRequest request) {
         return subjectDirectoryServiceFacade.getChapterTreeBySubjectId(subjectId);
@@ -47,14 +46,14 @@ public class SubjectRelativeController {
      * 根据科目ID和题目类型获取对应的目录（主要是真题目录和模拟题目录）
      *
      * @param subjectId
-     * @param issueKind 真题：Exam, 模拟题：Simulate
+     * @param issueKind 真题：1-Exam, 模拟题：2-Simulate
      * @param request
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/subject/getIssueDirBySubjectIdAndKind")
     public List<Directory> getIssueDirBySubjectIdAndKind(@RequestParam(value = "subjectId") Long subjectId,
-                                                         @RequestParam(value = "issueKind") String issueKind,
+                                                         @RequestParam(value = "issueKind") int issueKind,
                                                          HttpServletRequest request) {
         return subjectDirectoryServiceFacade.getIssueDirBySubjectIdAndKind(subjectId, issueKind);
     }
@@ -88,10 +87,10 @@ public class SubjectRelativeController {
     @ResponseBody
     @RequestMapping(value = "/subject/queryQuestionListByKeyWord")
     public QuestionGroupVo queryQuestionListByKeyWord(@RequestParam(value = "pageStart") int pageStart,
-                                                 @RequestParam(value = "pageSize") int pageSize,
-                                                 @RequestParam(value = "key") String key,
-                                                 @RequestParam(value = "subjectId") int subjectId,
-                                                 HttpServletRequest request) {
+                                                      @RequestParam(value = "pageSize") int pageSize,
+                                                      @RequestParam(value = "key") String key,
+                                                      @RequestParam(value = "subjectId") int subjectId,
+                                                      HttpServletRequest request) {
         return subjectDirectoryServiceFacade.queryQuestionListByKeyWord(pageStart, pageSize, key, subjectId);
     }
 
