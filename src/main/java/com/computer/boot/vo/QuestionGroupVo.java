@@ -8,7 +8,7 @@ import java.util.List;
 public class QuestionGroupVo {
 
     private Long total;
-    private List<List<QuestionVo>> questionGroup;
+    private List<List<QuestionVo>> questionList;
 
     public Long getTotal() {
         return total;
@@ -18,11 +18,11 @@ public class QuestionGroupVo {
         this.total = total;
     }
 
-    public List<List<QuestionVo>> getQuestionGroup() {
-        return questionGroup;
+    public List<List<QuestionVo>> getQuestionList() {
+        return questionList;
     }
 
-    public void setQuestionGroup(List<List<QuestionVo>> questionGroup) {
-        this.questionGroup = questionGroup;
+    public void setQuestionList(List<List<QuestionVo>> questionList) {
+        this.questionList = questionList;
     }
 }

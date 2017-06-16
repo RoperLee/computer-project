@@ -105,7 +105,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
             }
         }
         resultGroup.setTotal(questionMapper.selectTotalNumber(subjectId, directoryId));
-        resultGroup.setQuestionGroup(QuestionCollect);
+        resultGroup.setQuestionList(QuestionCollect);
         return resultGroup;
     }
 
@@ -158,7 +158,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         xList.add(choiceList);
         xList.add(blankList);
         xList.add(operateList);
-        result.setQuestionGroup(xList);
+        result.setQuestionList(xList);
         result.setTotal(questionMapper.queryTotalNumber(keyWord, subjectId));
         return result;
     }

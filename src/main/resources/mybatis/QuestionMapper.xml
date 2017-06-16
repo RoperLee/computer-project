@@ -33,7 +33,7 @@
         SELECT * FROM COMPUTER_QUESTION
         <where>
             <if test="keyWord != null">
-                CONTENT LIKE CONCAT('%','${keyWord}','%' )
+                EXTRA_INFO LIKE CONCAT('%','${keyWord}','%' )
             </if>
             AND IS_DELETED = 'N'
             AND SUBJECT_ID = #{subjectId}
@@ -45,7 +45,7 @@
         SELECT COUNT(*) FROM COMPUTER_QUESTION
         <where>
             <if test="keyWord != null">
-                CONTENT LIKE CONCAT('%','${keyWord}','%' )
+                EXTRA_INFO LIKE CONCAT('%','${keyWord}','%' )
             </if>
             AND IS_DELETED = 'N'
             AND SUBJECT_ID = #{subjectId}
