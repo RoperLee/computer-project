@@ -18,4 +18,6 @@ public interface DirectoryMapper {
     List<Directory> getIssueDirBySubjectIdAndKind(@Param("subjectId") Long subjectId,
                                                   @Param("issueKind") String issueKind);
 
+    Directory getDirectoryById(@Param("id") Long id);
+
 }

@@ -21,9 +21,11 @@ public interface QuestionMapper {
 
     List<Question> queryQuestionListByKeyWord(@Param("pageStart") int pageStart,
                                               @Param("pageSize") int pageSize,
-                                              @Param("keyWord") String keyWord);
+                                              @Param("keyWord") String keyWord,
+                                              @Param("subjectId") int subjectId);
 
-    Long queryTotalNumber(@Param("keyWord") String keyWord);
+    Long queryTotalNumber(@Param("keyWord") String keyWord,
+                          @Param("subjectId") int subjectId);
 
     Question getQuestionById(@Param("id") Long id);
 

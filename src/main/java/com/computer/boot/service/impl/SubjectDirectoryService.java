@@ -35,6 +35,8 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
     private KeyMapper keyMapper;
     @Autowired
     private StoreQuestionMapper storeQuestionMapper;
+    @Autowired
+    private UtilService utilService;
 
 
     /**
@@ -93,10 +95,11 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         if (null == subjectId || null == directoryId) {
             return resultGroup;
         }
-        List<List<Question>> QuestionCollect = new ArrayList<>();
+        List<List<QuestionVo>> QuestionCollect = new ArrayList<>();
         //循环遍历QuestionType枚举题目类型
         for (QuestionType e : QuestionType.values()) {
-            List<Question> tempList = getQuestionListBySubDirAndType(subjectId, directoryId, e);
+            List<Question> list = getQuestionListBySubDirAndType(subjectId, directoryId, e);
+            List<QuestionVo> tempList = utilService.parseQuestionList2QuestionVoList(list);
             if (!CollectionUtils.isEmpty(tempList)) {
                 QuestionCollect.add(tempList);
             }
@@ -127,19 +130,36 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
      * @param keyWord
      * @return
      */
-    public QueryQuestionVo queryQuestionListByKeyWord(int pageStart, int pageSize, String keyWord) {
-        QueryQuestionVo result = new QueryQuestionVo();
+    public QuestionGroupVo queryQuestionListByKeyWord(int pageStart, int pageSize, String keyWord, int subjectId) {
+        QuestionGroupVo result = new QuestionGroupVo();
         if (pageSize > 2000) {
             pageSize = 2000;
         }
-        result.setPageStart(pageStart);
-        result.setPageSize(pageSize);
         if (StringUtils.isEmpty(keyWord)) {
             result.setTotal(0L);
             return result;
         }
-        result.setQueryResult(questionMapper.queryQuestionListByKeyWord(pageStart, pageSize, keyWord));
-        result.setTotal(questionMapper.queryTotalNumber(keyWord));
+        List<Question> questionList = questionMapper.queryQuestionListByKeyWord(pageStart, pageSize, keyWord, subjectId);
+        List<QuestionVo> choiceList = new ArrayList<>();
+        List<QuestionVo> blankList = new ArrayList<>();
+        List<QuestionVo> operateList = new ArrayList<>();
+        for (int i = 0; i < questionList.size(); i++) {
+            Question item = questionList.get(i);
+            QuestionVo vo = utilService.parseQuestion2QuestionVo(item);
+            if (QuestionType.CHOICE.name().equalsIgnoreCase(item.getQuestionType())) {
+                choiceList.add(vo);
+            } else if (QuestionType.BLANK.name().equalsIgnoreCase(item.getQuestionType())) {
+                blankList.add(vo);
+            } else {
+                operateList.add(vo);
+            }
+        }
+        List<List<QuestionVo>> xList = new ArrayList<>();
+        xList.add(choiceList);
+        xList.add(blankList);
+        xList.add(operateList);
+        result.setQuestionGroup(xList);
+        result.setTotal(questionMapper.queryTotalNumber(keyWord, subjectId));
         return result;
     }
 

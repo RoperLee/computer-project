@@ -1,7 +1,5 @@
 package com.computer.boot.vo;
 
-import com.computer.boot.model.Question;
-
 import java.util.List;
 
 /**
@@ -10,7 +8,7 @@ import java.util.List;
 public class QuestionGroupVo {
 
     private Long total;
-    private List<List<Question>> questionGroup;
+    private List<List<QuestionVo>> questionGroup;
 
     public Long getTotal() {
         return total;
@@ -20,11 +18,11 @@ public class QuestionGroupVo {
         this.total = total;
     }
 
-    public List<List<Question>> getQuestionGroup() {
+    public List<List<QuestionVo>> getQuestionGroup() {
         return questionGroup;
     }
 
-    public void setQuestionGroup(List<List<Question>> questionGroup) {
+    public void setQuestionGroup(List<List<QuestionVo>> questionGroup) {
         this.questionGroup = questionGroup;
     }
 }

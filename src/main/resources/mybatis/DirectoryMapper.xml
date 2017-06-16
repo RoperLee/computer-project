@@ -26,4 +26,10 @@
         ORDER BY SORT_KEY_NUMBER
     </select>
 
+    <select id="getDirectoryById" resultMap="Directory">
+        SELECT * FROM COMPUTER_DIRECTORY
+        WHERE ID = #{id}
+        AND IS_DELETED = 'N'
+    </select>
+
 </mapper>

@@ -3,7 +3,6 @@ package com.computer.boot.service;
 import com.computer.boot.model.Directory;
 import com.computer.boot.model.StoreType;
 import com.computer.boot.vo.StoreQuestionListVo;
-import com.computer.boot.vo.QueryQuestionVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.springframework.stereotype.Service;
@@ -50,7 +49,7 @@ public interface SubjectDirectoryServiceFacade {
      * @param keyWord
      * @return
      */
-    QueryQuestionVo queryQuestionListByKeyWord(int pageStart, int pageSize, String keyWord);
+    QuestionGroupVo queryQuestionListByKeyWord(int pageStart, int pageSize, String keyWord,int subjectId);
 
     /**
      * 获取推荐搜索关键词

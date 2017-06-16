@@ -9,7 +9,7 @@ public class Question extends BasicModelObject {
     private String content;
     private String option;
     private String analysis;
-    private Long subjectId;
+    private int subjectId;
     private String kind;
     private Long directoryId;
 
@@ -45,11 +45,11 @@ public class Question extends BasicModelObject {
         this.analysis = analysis;
     }
 
-    public Long getSubjectId() {
+    public int getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(Long subjectId) {
+    public void setSubjectId(int subjectId) {
         this.subjectId = subjectId;
     }
 

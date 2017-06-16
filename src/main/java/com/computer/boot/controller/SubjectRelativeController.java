@@ -3,9 +3,9 @@ package com.computer.boot.controller;
 import com.computer.boot.model.Directory;
 import com.computer.boot.model.StoreType;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
-import com.computer.boot.vo.StoreQuestionListVo;
-import com.computer.boot.vo.QueryQuestionVo;
 import com.computer.boot.vo.QuestionGroupVo;
+import com.computer.boot.vo.QuestionVo;
+import com.computer.boot.vo.StoreQuestionListVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -81,17 +81,18 @@ public class SubjectRelativeController {
      *
      * @param pageStart
      * @param pageSize
-     * @param keyWord
+     * @param key
      * @param request
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/subject/queryQuestionListByKeyWord")
-    public QueryQuestionVo queryQuestionListByKeyWord(@RequestParam(value = "pageStart") int pageStart,
-                                                      @RequestParam(value = "pageSize") int pageSize,
-                                                      @RequestParam(value = "keyWord") String keyWord,
-                                                      HttpServletRequest request) {
-        return subjectDirectoryServiceFacade.queryQuestionListByKeyWord(pageStart, pageSize, keyWord);
+    public QuestionGroupVo queryQuestionListByKeyWord(@RequestParam(value = "pageStart") int pageStart,
+                                                 @RequestParam(value = "pageSize") int pageSize,
+                                                 @RequestParam(value = "key") String key,
+                                                 @RequestParam(value = "subjectId") int subjectId,
+                                                 HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.queryQuestionListByKeyWord(pageStart, pageSize, key, subjectId);
     }
 
 

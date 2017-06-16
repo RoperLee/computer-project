@@ -1,12 +1,16 @@
 package com.computer.boot.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.computer.boot.config.ImagePropertyUtils;
 import com.computer.boot.config.ServicePropertyUtils;
+import com.computer.boot.mapper.DirectoryMapper;
 import com.computer.boot.mapper.ExamDateMapper;
 import com.computer.boot.mapper.UserMapper;
-import com.computer.boot.model.ExamDate;
+import com.computer.boot.model.*;
 import com.computer.boot.service.UtilServiceFacade;
 import com.computer.boot.vo.LastDateVo;
+import com.computer.boot.vo.QuestionVo;
 import com.computer.boot.vo.RankListVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +42,8 @@ public class UtilService implements UtilServiceFacade {
     private UserMapper userMapper;
     @Autowired
     private ServicePropertyUtils servicePropertyUtils;
+    @Autowired
+    private DirectoryMapper directoryMapper;
 
     @Override
     public void showPic(HttpServletResponse response, String fileName) {
@@ -111,4 +117,81 @@ public class UtilService implements UtilServiceFacade {
         bannerList.add(IMAGE_PATH + "banner_3.png");
         return bannerList;
     }
+
+    public QuestionVo parseQuestion2QuestionVo(Question item) {
+        QuestionVo temp = new QuestionVo();
+        temp.setId(item.getId());
+
+
+        Directory directory = directoryMapper.getDirectoryById(item.getDirectoryId());
+        temp.setTitle(parseTitle(directory.getTitle()));
+        temp.setShowAnswer(false);
+        temp.setContent(item.getContent());
+
+        JSONObject option = JSON.parseObject(item.getOption());
+        temp.setSelect(option.getJSONArray("optionList"));
+        temp.setRight(option.getString("correctOption"));
+        temp.setDetail(item.getAnalysis());
+
+        int typei;
+        if (IssueKind.EXAM.name().equalsIgnoreCase(item.getKind())) {
+            typei = 1;
+        } else {
+            typei = 2;
+        }
+        int typex;
+        if (QuestionType.CHOICE.name().equalsIgnoreCase(item.getQuestionType())) {
+            typex = 1;
+        } else if (QuestionType.BLANK.name().equalsIgnoreCase(item.getQuestionType())) {
+            typex = 2;
+        } else {
+            typex = 3;
+        }
+        temp.setType(item.getSubjectId() * 100 + typei * 10 + typex);
+        return temp;
+    }
+
+    public List<QuestionVo> parseQuestionList2QuestionVoList(List<Question> itemList) {
+        List<QuestionVo> resultList = new ArrayList<>();
+        for (int i = 0; i < itemList.size(); i++) {
+            resultList.add(parseQuestion2QuestionVo(itemList.get(i)));
+        }
+        return resultList;
+    }
+
+    public String parseTitle(String origin) {
+        if (origin.contains("真题")) {
+            return origin.replaceAll("计算机二级考试", "");
+        } else if (origin.contains("模拟题")) {
+            return origin.replaceAll("机考", "");
+        } else {
+            return origin;
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
