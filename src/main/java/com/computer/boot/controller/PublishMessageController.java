@@ -30,7 +30,7 @@ public class PublishMessageController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/publish/getPublishMessage")
+    @RequestMapping(value = "/getOfficialMsg")
     public List<PublishMessage> getPublishMessage(HttpServletRequest request) {
         return publishMessageServiceFacade.getPublishMessage();
     }

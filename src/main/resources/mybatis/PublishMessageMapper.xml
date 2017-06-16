@@ -7,6 +7,7 @@
         <result property="title" column="TITLE"/>
         <result property="content" column="CONTENT"/>
         <result property="origin" column="ORIGIN"/>
+        <result property="time" column="GMT_CREAT"/>
     </resultMap>
 
     <select id="getPublishMessage" resultMap="PublishMessage">
