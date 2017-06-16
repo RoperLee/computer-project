@@ -1,5 +1,6 @@
 package com.computer.boot.controller;
 
+import com.computer.boot.model.User;
 import com.computer.boot.service.UtilServiceFacade;
 import com.computer.boot.vo.LastDateVo;
 import com.computer.boot.vo.RankListVo;
@@ -90,11 +91,31 @@ public class UtilController {
         return utilServiceFacade.addExecuteQuestionCount(userId, count);
     }
 
+    /**
+     * 获取Banner
+     *
+     * @param request
+     * @param response
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/getBanner")
     public List<String> getBanner(HttpServletRequest request, HttpServletResponse response) {
         return utilServiceFacade.getBanner();
     }
 
+    /**
+     * 获取用户信息
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getUserInfo")
+    public User getUserInfo(@RequestParam("userId") Long userId,
+                            HttpServletRequest request, HttpServletResponse response) {
+        return utilServiceFacade.getUserInfo(userId);
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.computer.boot.service;
 
+import com.computer.boot.model.User;
 import com.computer.boot.vo.LastDateVo;
 import com.computer.boot.vo.RankListVo;
 import org.springframework.stereotype.Service;
@@ -22,4 +23,6 @@ public interface UtilServiceFacade {
     boolean addExecuteQuestionCount(Long userId, int count);
 
     List<String> getBanner();
+
+    User getUserInfo(Long userId);
 }

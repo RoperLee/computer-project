@@ -92,7 +92,7 @@ public class UtilService implements UtilServiceFacade {
         if (null == userId) {
             return result;
         }
-        result.setSelf(userMapper.getUserRanking(userId));
+        result.setSelf(userMapper.getUser(userId));
         result.setUserList(userMapper.queryUserRankingList(pageStart, pageSize));
         return result;
     }
@@ -116,6 +116,11 @@ public class UtilService implements UtilServiceFacade {
         bannerList.add(IMAGE_PATH + "banner_2.png");
         bannerList.add(IMAGE_PATH + "banner_3.png");
         return bannerList;
+    }
+
+    @Override
+    public User getUserInfo(Long userId) {
+        return userMapper.getUser(userId);
     }
 
     public QuestionVo parseQuestion2QuestionVo(Question item) {

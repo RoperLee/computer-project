@@ -13,7 +13,7 @@
         <result property="ranking" column="RANKING"/>
     </resultMap>
 
-    <select id="getUserRanking" resultMap="User">
+    <select id="getUser" resultMap="User">
         SELECT mine.* , (
           SELECT COUNT(1) FROM  COMPUTER_USER
           WHERE QUESTION_COUNT >  mine.QUESTION_COUNT)+1 AS RANKING

@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public interface UserMapper {
 
-    User getUserRanking(@Param("userId") Long userId);
+    User getUser(@Param("userId") Long userId);
 
     List<User> queryUserRankingList(@Param("pageStart") int pageStart,
                                     @Param("pageSize") int pageSize);
