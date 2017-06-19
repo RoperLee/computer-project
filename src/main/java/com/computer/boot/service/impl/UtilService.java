@@ -108,10 +108,10 @@ public class UtilService implements UtilServiceFacade {
 
     @Override
     public List<String> getBanner() {
-        String ip = servicePropertyUtils.getAddress();
+        String host = servicePropertyUtils.getDns();
         String port = servicePropertyUtils.getPort();
         List<String> bannerList = new ArrayList<>();
-        String IMAGE_PATH = ip + ":" + port + "/image/showPic?fileName=";
+        String IMAGE_PATH = host + ":" + port + "/image/showPic?fileName=";
         bannerList.add(IMAGE_PATH + "banner_1.png");
         bannerList.add(IMAGE_PATH + "banner_2.png");
         bannerList.add(IMAGE_PATH + "banner_3.png");

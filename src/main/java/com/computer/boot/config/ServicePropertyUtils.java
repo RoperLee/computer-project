@@ -14,6 +14,7 @@ public class ServicePropertyUtils {
 
     private String address;
     private String port;
+    private String dns;
 
     public String getAddress() {
         return address;
@@ -29,5 +30,13 @@ public class ServicePropertyUtils {
 
     public void setPort(String port) {
         this.port = port;
+    }
+
+    public String getDns() {
+        return dns;
+    }
+
+    public void setDns(String dns) {
+        this.dns = dns;
     }
 }
