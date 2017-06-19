@@ -61,3 +61,5 @@
 2017-06-16 21:53:54.374  INFO 6283 --- [http-nio-0.0.0.0-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
 2017-06-16 21:53:54.375  INFO 6283 --- [http-nio-0.0.0.0-9090-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
 2017-06-16 21:53:54.403  INFO 6283 --- [http-nio-0.0.0.0-9090-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 28 ms
+2017-06-16 22:13:32.808  INFO 6283 --- [Thread-3] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@448ff1a8: startup date [Fri Jun 16 21:53:31 CST 2017]; root of context hierarchy
+2017-06-16 22:13:32.810  INFO 6283 --- [Thread-3] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
