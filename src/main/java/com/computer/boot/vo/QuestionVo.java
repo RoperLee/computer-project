@@ -1,6 +1,7 @@
 package com.computer.boot.vo;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * Created by roper on 2017/6/16.
@@ -10,10 +11,10 @@ public class QuestionVo {
     private String title;
     private int type;
     private boolean showAnswer;
-    private String content;
+    private JSONObject content;
     private JSONArray select;
     private String right;
-    private String detail;
+    private JSONObject detail;
 
     public Long getId() {
         return id;
@@ -47,14 +48,6 @@ public class QuestionVo {
         this.showAnswer = showAnswer;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public JSONArray getSelect() {
         return select;
     }
@@ -71,11 +64,19 @@ public class QuestionVo {
         this.right = right;
     }
 
-    public String getDetail() {
+    public JSONObject getContent() {
+        return content;
+    }
+
+    public void setContent(JSONObject content) {
+        this.content = content;
+    }
+
+    public JSONObject getDetail() {
         return detail;
     }
 
-    public void setDetail(String detail) {
+    public void setDetail(JSONObject detail) {
         this.detail = detail;
     }
 }

@@ -112,9 +112,9 @@ public class UtilService implements UtilServiceFacade {
         String port = servicePropertyUtils.getPort();
         List<String> bannerList = new ArrayList<>();
         String IMAGE_PATH = host + ":" + port + "/image/showPic?fileName=";
-        bannerList.add(IMAGE_PATH + "banner_1.png");
-        bannerList.add(IMAGE_PATH + "banner_2.png");
-        bannerList.add(IMAGE_PATH + "banner_3.png");
+        bannerList.add(IMAGE_PATH + "banner_1.jpg");
+        bannerList.add(IMAGE_PATH + "banner_2.jpg");
+        bannerList.add(IMAGE_PATH + "banner_3.jpg");
         return bannerList;
     }
 
