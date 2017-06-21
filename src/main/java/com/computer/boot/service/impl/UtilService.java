@@ -131,12 +131,12 @@ public class UtilService implements UtilServiceFacade {
         Directory directory = directoryMapper.getDirectoryById(item.getDirectoryId());
         temp.setTitle(parseTitle(directory.getTitle()));
         temp.setShowAnswer(false);
-        temp.setContent(item.getContent());
+        temp.setContent(JSON.parseObject(item.getContent()));
 
         JSONObject option = JSON.parseObject(item.getOption());
         temp.setSelect(option.getJSONArray("optionList"));
         temp.setRight(option.getString("correctOption"));
-        temp.setDetail(item.getAnalysis());
+        temp.setDetail(JSON.parseObject(item.getAnalysis()));
 
         int typei;
         if (IssueKind.EXAM.name().equalsIgnoreCase(item.getKind())) {
