@@ -15,5 +15,9 @@
         AND IS_DELETED = 'N'
     </select>
 
+    <select id="getAllSubject" resultMap="Subject">
+        SELECT * FROM COMPUTER_SUBJECT
+        WHERE IS_DELETED = 'N'
+    </select>
 
 </mapper>

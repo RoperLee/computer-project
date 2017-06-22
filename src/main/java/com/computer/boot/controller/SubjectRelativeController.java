@@ -2,6 +2,7 @@ package com.computer.boot.controller;
 
 import com.computer.boot.model.Directory;
 import com.computer.boot.model.StoreType;
+import com.computer.boot.model.Subject;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
@@ -26,6 +27,18 @@ public class SubjectRelativeController {
 
     @Autowired
     private SubjectDirectoryServiceFacade subjectDirectoryServiceFacade;
+
+    /**
+     * 获取所有的科目
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getAllSubject")
+    public List<Subject> getAllSubject(HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.getAllSubject();
+    }
 
     /**
      * 根据科目ID获取该科目下的章节树
@@ -161,9 +174,9 @@ public class SubjectRelativeController {
     @ResponseBody
     @RequestMapping(value = "/subject/getStoreQuestionList")
     public QuestionGroupVo getStoreQuestionList(@RequestParam(value = "userId") Long userId,
-                                                    @RequestParam(value = "subjectId") int subjectId,
-                                                    @RequestParam(value = "storeType") String storeType,
-                                                    HttpServletRequest request) {
+                                                @RequestParam(value = "subjectId") int subjectId,
+                                                @RequestParam(value = "storeType") String storeType,
+                                                HttpServletRequest request) {
         return subjectDirectoryServiceFacade.getStoreQuestionList(userId, subjectId, storeType);
     }
 

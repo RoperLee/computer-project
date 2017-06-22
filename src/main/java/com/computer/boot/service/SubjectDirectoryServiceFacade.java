@@ -2,6 +2,7 @@ package com.computer.boot.service;
 
 import com.computer.boot.model.Directory;
 import com.computer.boot.model.StoreType;
+import com.computer.boot.model.Subject;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,12 @@ import java.util.List;
  */
 @Service
 public interface SubjectDirectoryServiceFacade {
+
+    /**
+     * 获取所有的科目
+     * @return
+     */
+    List<Subject> getAllSubject();
 
     /**
      * 根据科目ID获取该科目下的章节树
@@ -48,7 +55,7 @@ public interface SubjectDirectoryServiceFacade {
      * @param keyWord
      * @return
      */
-    QuestionGroupVo queryQuestionListByKeyWord(int pageStart, int pageSize, String keyWord,int subjectId);
+    QuestionGroupVo queryQuestionListByKeyWord(int pageStart, int pageSize, String keyWord, int subjectId);
 
     /**
      * 获取推荐搜索关键词

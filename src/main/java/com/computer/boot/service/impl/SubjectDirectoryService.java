@@ -38,6 +38,15 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
     @Autowired
     private UtilService utilService;
 
+    /**
+     * 获取所有的科目
+     *
+     * @return
+     */
+    @Override
+    public List<Subject> getAllSubject() {
+        return subjectMapper.getAllSubject();
+    }
 
     /**
      * 根据科目ID获取该科目下的章节树
