@@ -76,10 +76,37 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
     }
 
     /**
+     * 获取subjectId下的directory列表，并且按照  章节、真题、模拟题分组
+     *
+     * @param subjectId
+     * @return
+     */
+    @Override
+    public List<DirectoryListVo> getDirectoryGroupBySubject(Long subjectId) {
+        List<DirectoryListVo> result = new ArrayList<>();
+        if (null == subjectId) {
+            return result;
+        }
+        for (int i = 1; i < 4; i++) {
+            DirectoryListVo vo = new DirectoryListVo();
+            if (i == 1) {
+                vo.setType("真题目录");
+            } else if (i == 2) {
+                vo.setType("模拟题目录");
+            } else {
+                vo.setType("章节目录");
+            }
+            vo.setDirectoryList(getIssueDirBySubjectIdAndKind(subjectId, i));
+            result.add(vo);
+        }
+        return result;
+    }
+
+    /**
      * 根据科目ID和题目类型获取对应的目录（主要是真题目录和模拟题目录）
      *
      * @param subjectId
-     * @param issueKind 真题：Exam, 模拟题：Simulate
+     * @param issueKind 1-真题：Exam, 2-模拟题：Simulate, 3-章节：CHAPTER
      * @return
      */
     @Override
@@ -91,8 +118,10 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         String issueEnum;
         if (1 == issueKind) {
             issueEnum = IssueKind.EXAM.name();
-        } else {
+        } else if (2 == issueKind) {
             issueEnum = IssueKind.SIMULATE.name();
+        } else {
+            issueEnum = IssueKind.CHAPTER.name();
         }
         return directoryMapper.getIssueDirBySubjectIdAndKind(subjectId, issueEnum);
     }
@@ -311,6 +340,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         storeQuestionMapper.updateQuestionIdList(userId, subjectId, StringUtils.join(afterIds.toArray(), ","), storeType);
         return true;
     }
+
 
 }
 

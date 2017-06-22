@@ -3,6 +3,7 @@ package com.computer.boot.service;
 import com.computer.boot.model.Directory;
 import com.computer.boot.model.StoreType;
 import com.computer.boot.model.Subject;
+import com.computer.boot.vo.DirectoryListVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public interface SubjectDirectoryServiceFacade {
 
     /**
      * 获取所有的科目
+     *
      * @return
      */
     List<Subject> getAllSubject();
@@ -28,6 +30,14 @@ public interface SubjectDirectoryServiceFacade {
      * @return
      */
     SubjectChapterTreeVo getChapterTreeBySubjectId(Long subjectId);
+
+    /**
+     * 获取subjectId下的directory列表，并且按照  章节、真题、模拟题分组
+     *
+     * @param subjectId
+     * @return
+     */
+    List<DirectoryListVo> getDirectoryGroupBySubject(Long subjectId);
 
     /**
      * 根据科目ID和题目类型获取对应的目录（主要是真题目录和模拟题目录）

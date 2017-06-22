@@ -4,10 +4,6 @@ package com.computer.boot.model;
  * Created by roper on 2017/6/9.
  */
 public enum IssueKind {
-    /**
-     * 章节
-     */
-    CHAPTER,
 
     /**
      * 真题
@@ -17,5 +13,10 @@ public enum IssueKind {
     /**
      * 模拟题
      */
-    SIMULATE
+    SIMULATE,
+
+    /**
+     * 章节
+     */
+    CHAPTER
 }
