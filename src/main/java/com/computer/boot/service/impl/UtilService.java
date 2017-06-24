@@ -12,23 +12,17 @@ import com.computer.boot.service.UtilServiceFacade;
 import com.computer.boot.vo.LastDateVo;
 import com.computer.boot.vo.QuestionVo;
 import com.computer.boot.vo.RankListVo;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by roper on 2017/5/15.
@@ -178,48 +172,70 @@ public class UtilService implements UtilServiceFacade {
         }
     }
 
+    /**
+     * 保存图片
+     *
+     * @param uploadImg
+     * @return
+     */
     @Override
-    public Object catchAndSaveImg(HttpServletRequest request) {
-        //转型为MultipartHttpServletRequest
-//        MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-//        MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request);
-        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        //获取文件到map容器中
-        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-        String savePath = "/Users/roper/Desktop/img/";
-        //文件上传并返回map容器，map存储了文件信息
-        FileModel fileModel = uploadFiles(savePath, fileMap);
-        //写一些数据库
-        return null;
-    }
-
-    private FileModel uploadFiles(String savePath, Map<String, MultipartFile> fiLeMap) {
-        //上传文件
-        FileModel fm = new FileModel();
+    public Object catchAndSaveImg(MultipartFile[] uploadImg) {
         try {
-            File file = new File(savePath);
-            if (fiLeMap != null) {
-                for (Map.Entry<String, MultipartFile> entity : fiLeMap.entrySet()) {
-                    MultipartFile f = entity.getValue();
-                    if (f != null && !f.isEmpty()) {
-                        //保存文件
-                        File newFile = new File(savePath + f.getOriginalFilename());
-                        f.transferTo(newFile);
-                        fm.setFileName(f.getOriginalFilename());
-                        fm.setFilePath(savePath);//保存路径
-                        fm.setSize(f.getSize());
-                    }
+            String dir = "/Users/roper/Desktop/img/";
+            for (MultipartFile myfile : uploadImg) {
+                if (myfile.isEmpty()) {
+                    logger.info("文件未上传");
+                } else {
+                    logger.info("========================================");
+                    logger.info("文件长度: " + myfile.getSize());
+                    logger.info("文件类型: " + myfile.getContentType());
+                    logger.info("文件名称: " + myfile.getName());
+                    logger.info("文件原名: " + myfile.getOriginalFilename());
+                    logger.info("========================================");
+                    writeFile(myfile.getOriginalFilename(), dir, myfile.getInputStream());
+
                 }
             }
-            return fm;
 
-        } catch (Exception e) {
-            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return true;
+    }
+
+    /**
+     * 文件上传
+     *
+     * @param srcName 原文件名
+     * @param dirName 目录名
+     * @param input   要保存的输入流
+     * @return 返回要保存到数据库中的路径
+     */
+    private String writeFile(String srcName, String dirName, InputStream input) throws IOException {
+
+
+        // 得到要上传的文件路径
+        String filename = dirName + srcName;
+
+        logger.info(filename);
+
+        File file = new File(filename);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        FileOutputStream fos = new FileOutputStream(file);
+        // 一次30kb
+        byte[] readBuff = new byte[1024 * 30];
+        int count = -1;
+        while ((count = input.read(readBuff, 0, readBuff.length)) != -1) {
+            fos.write(readBuff, 0, count);
+        }
+        fos.flush();
+        fos.close();
+        input.close();
+        return filename;
     }
 }
-
-
 
 
 

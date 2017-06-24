@@ -8,12 +8,11 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -120,10 +119,12 @@ public class UtilController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/question/ajax/img/uploade")
-    public Object catchAndSaveImg(HttpServletRequest request, HttpServletResponse response) {
-        return utilServiceFacade.catchAndSaveImg(request);
+    @RequestMapping(value = "/question/ajax/img/uploade", method = RequestMethod.POST)
+    public Object catchAndSaveImg(@RequestParam MultipartFile[] uploadImg,
+                                  HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return utilServiceFacade.catchAndSaveImg(uploadImg);
     }
+
 
 
 }
