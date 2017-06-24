@@ -12,10 +12,13 @@ import com.computer.boot.service.UtilServiceFacade;
 import com.computer.boot.vo.LastDateVo;
 import com.computer.boot.vo.QuestionVo;
 import com.computer.boot.vo.RankListVo;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
@@ -25,6 +28,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by roper on 2017/5/15.
@@ -171,6 +175,46 @@ public class UtilService implements UtilServiceFacade {
             return origin.replaceAll("机考", "");
         } else {
             return origin;
+        }
+    }
+
+    @Override
+    public Object catchAndSaveImg(HttpServletRequest request) {
+        //转型为MultipartHttpServletRequest
+//        MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+//        MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request);
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        //获取文件到map容器中
+        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+        String savePath = "/Users/roper/Desktop/img/";
+        //文件上传并返回map容器，map存储了文件信息
+        FileModel fileModel = uploadFiles(savePath, fileMap);
+        //写一些数据库
+        return null;
+    }
+
+    private FileModel uploadFiles(String savePath, Map<String, MultipartFile> fiLeMap) {
+        //上传文件
+        FileModel fm = new FileModel();
+        try {
+            File file = new File(savePath);
+            if (fiLeMap != null) {
+                for (Map.Entry<String, MultipartFile> entity : fiLeMap.entrySet()) {
+                    MultipartFile f = entity.getValue();
+                    if (f != null && !f.isEmpty()) {
+                        //保存文件
+                        File newFile = new File(savePath + f.getOriginalFilename());
+                        f.transferTo(newFile);
+                        fm.setFileName(f.getOriginalFilename());
+                        fm.setFilePath(savePath);//保存路径
+                        fm.setSize(f.getSize());
+                    }
+                }
+            }
+            return fm;
+
+        } catch (Exception e) {
+            return null;
         }
     }
 }

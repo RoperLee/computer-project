@@ -118,4 +118,12 @@ public class UtilController {
         return utilServiceFacade.getUserInfo(userId);
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "/question/ajax/img/uploade")
+    public Object catchAndSaveImg(HttpServletRequest request, HttpServletResponse response) {
+        return utilServiceFacade.catchAndSaveImg(request);
+    }
+
+
 }

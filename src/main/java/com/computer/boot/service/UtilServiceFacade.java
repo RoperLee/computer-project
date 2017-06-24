@@ -3,6 +3,7 @@ package com.computer.boot.service;
 import com.computer.boot.model.User;
 import com.computer.boot.vo.LastDateVo;
 import com.computer.boot.vo.RankListVo;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,4 +26,6 @@ public interface UtilServiceFacade {
     List<String> getBanner();
 
     User getUserInfo(Long userId);
+
+    Object catchAndSaveImg(HttpServletRequest request);
 }
