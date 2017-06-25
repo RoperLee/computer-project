@@ -180,7 +180,7 @@ public class UtilService implements UtilServiceFacade {
      */
     @Override
     public boolean easyAddQuestion(String postData) {
-        
+
         return true;
     }
 
@@ -205,7 +205,7 @@ public class UtilService implements UtilServiceFacade {
                     logger.info("文件名称: " + myfile.getName());
                     logger.info("文件原名: " + myfile.getOriginalFilename());
                     logger.info("========================================");
-                    writeFile(myfile.getOriginalFilename(), dir, myfile.getInputStream());
+                    writeFile(myfile.getOriginalFilename(), dir, myfile.getInputStream(), myfile.getSize());
 
                 }
             }
@@ -224,11 +224,11 @@ public class UtilService implements UtilServiceFacade {
      * @param input   要保存的输入流
      * @return 返回要保存到数据库中的路径
      */
-    private String writeFile(String srcName, String dirName, InputStream input) throws IOException {
+    private String writeFile(String srcName, String dirName, InputStream input, Long size) throws IOException {
 
 
         // 得到要上传的文件路径
-        String filename = dirName + srcName;
+        String filename = dirName + size + "-" + srcName;
 
         logger.info(filename);
 
