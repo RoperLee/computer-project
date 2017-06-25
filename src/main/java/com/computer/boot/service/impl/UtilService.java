@@ -225,14 +225,14 @@ public class UtilService implements UtilServiceFacade {
         JSONObject contentObject = new JSONObject();
         contentObject.put("isImg", isContentImg.equalsIgnoreCase("Y"));
         if (CollectionUtils.isEmpty(contentStrList)) {
-            contentObject.put("text", new ArrayList<String>());
+            contentObject.put("text", new ArrayList<>());
         } else {
             contentObject.put("text", contentStrList);
         }
         if (CollectionUtils.isEmpty(contentImgNameList)) {
-            contentObject.put("imgUrl", new ArrayList<String>());
+            contentObject.put("imgUrl", new ArrayList<>());
         } else {
-            contentObject.put("imgUrl", contentImgNameList);
+            contentObject.put("imgUrl", parseImgName2UrlName(contentImgNameList));
         }
         willInsert.setContent(JSON.toJSONString(contentObject));
         //拼接选项option
@@ -252,14 +252,14 @@ public class UtilService implements UtilServiceFacade {
         JSONObject analysisObject = new JSONObject();
         analysisObject.put("isImg", isAnswerImg.equalsIgnoreCase("Y"));
         if (CollectionUtils.isEmpty(answerStrList)) {
-            analysisObject.put("text", new ArrayList<String>());
+            analysisObject.put("text", new ArrayList<>());
         } else {
             analysisObject.put("text", answerStrList);
         }
         if (CollectionUtils.isEmpty(answerImgNameList)) {
-            analysisObject.put("imgUrl", new ArrayList<String>());
+            analysisObject.put("imgUrl", new ArrayList<>());
         } else {
-            analysisObject.put("imgUrl", answerImgNameList);
+            analysisObject.put("imgUrl", parseImgName2UrlName(answerImgNameList));
         }
         willInsert.setAnalysis(JSON.toJSONString(analysisObject));
 
@@ -272,6 +272,17 @@ public class UtilService implements UtilServiceFacade {
 
         questionMapper.insertQuestionData(willInsert);
         return true;
+    }
+
+    private List<String> parseImgName2UrlName(List<String> imgList) {
+        List<String> resultList = new ArrayList<>();
+        String host = servicePropertyUtils.getDns();
+        String port = servicePropertyUtils.getPort();
+        String IMAGE_PATH = host + ":" + port + "/image/showPic?fileName=";
+        for (int i = 0; i < imgList.size(); i++) {
+            resultList.add(IMAGE_PATH + imgList.get(i));
+        }
+        return resultList;
     }
 
 
