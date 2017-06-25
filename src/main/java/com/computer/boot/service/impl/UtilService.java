@@ -1,11 +1,14 @@
 package com.computer.boot.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.computer.boot.config.ImagePropertyUtils;
 import com.computer.boot.config.ServicePropertyUtils;
 import com.computer.boot.mapper.DirectoryMapper;
 import com.computer.boot.mapper.ExamDateMapper;
+import com.computer.boot.mapper.QuestionMapper;
 import com.computer.boot.mapper.UserMapper;
 import com.computer.boot.model.*;
 import com.computer.boot.service.UtilServiceFacade;
@@ -16,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +46,10 @@ public class UtilService implements UtilServiceFacade {
     private ServicePropertyUtils servicePropertyUtils;
     @Autowired
     private DirectoryMapper directoryMapper;
+    @Autowired
+    private QuestionMapper questionMapper;
+
+    private static final String OPTION_ABC = "{\"0\":\"A\",\"1\":\"B\",\"2\":\"C\",\"3\":\"D\",\"4\":\"E\",\"5\":\"F\",\"6\":\"G\",\"7\":\"H\",\"8\":\"I\",\"9\":\"J\",\"10\":\"K\"}";
 
     @Override
     public void showPic(HttpServletResponse response, String fileName) {
@@ -175,12 +183,94 @@ public class UtilService implements UtilServiceFacade {
     /**
      * 保存试题
      *
-     * @param postData {"subjectId":"1","directoryId":"42","issuseType":"CHOICE","sortKeyNumber":"1","isContentImg":"N","contentStrList":["asdf asf  "],"contentImgNameList":null,"isSelectImg":false,"selectOptionStrList":["asdf asd","asdfa sdf "],"correctSelectOption":"B","isAnswerImg":"N","answerStrList":["asdf asdf "],"answerImgNameList":null}
+     * @param postData {"subjectId":"1","directoryId":"42","issuseType":"CHOICE","sortKeyNumber":"1","isContentImg":"Y","contentStrList":[""],"contentImgNameList":["10176-AN-icon.png","10108-AU-icon.png"],"isSelectImg":false,"selectOptionStrList":["asdfasdf","asdfasdf","asdfadsf"],"correctSelectOption":"A","isAnswerImg":"N","answerStrList":["asdfasdf"],"answerImgNameList":null}
      * @return
      */
     @Override
     public boolean easyAddQuestion(String postData) {
+        JSONObject originData = JSON.parseObject(postData);
+        int subjectId = originData.getInteger("subjectId");
+        Long directoryId = originData.getLong("directoryId");
+        String issuseType = originData.getString("issuseType");//CHOICE-BLANK-OPERATION
+        Long sortKeyNumber = originData.getLong("sortKeyNumber");
+        String isContentImg = originData.getString("isContentImg");//"Y"-"N";
+        List<String> contentStrList = JSONObject.parseArray(JSONObject.toJSONString(originData.getJSONArray("contentStrList"), SerializerFeature.WriteClassName),
+                String.class); // 空的时候转化结果为null或者其他的空，正常判断就行
+        List<String> contentImgNameList = JSONObject.parseArray(JSONObject.toJSONString(originData.getJSONArray("contentImgNameList"), SerializerFeature.WriteClassName),
+                String.class);
+        boolean isSelectImg = originData.getBoolean("isSelectImg");
+        List<String> selectOptionStrList = JSONObject.parseArray(JSONObject.toJSONString(originData.getJSONArray("selectOptionStrList"), SerializerFeature.WriteClassName),
+                String.class);
+        String correctSelectOption = originData.getString("correctSelectOption");
 
+        String isAnswerImg = originData.getString("isAnswerImg");//"Y"-"N"
+        List<String> answerStrList = JSONObject.parseArray(JSONObject.toJSONString(originData.getJSONArray("answerStrList"), SerializerFeature.WriteClassName),
+                String.class);
+        List<String> answerImgNameList = JSONObject.parseArray(JSONObject.toJSONString(originData.getJSONArray("answerImgNameList"), SerializerFeature.WriteClassName),
+                String.class);
+
+        //首先根据subjectId 、directoryId 下是否已经存在 sortKeyNumber的题，如果存在则删除原有的，插入新的题
+        if (questionMapper.hasExistCurrentQuestion(Long.valueOf(subjectId), directoryId, sortKeyNumber) > 0) {
+            questionMapper.deleteCurrentQuestion(Long.valueOf(subjectId), directoryId, sortKeyNumber);
+        }
+        Question willInsert = new Question();
+
+        willInsert.setIsDeleted("N");
+        willInsert.setQuestionType(issuseType);
+        willInsert.setSubjectId(subjectId);
+        willInsert.setDirectoryId(directoryId);
+        willInsert.setSortKeyNumber(sortKeyNumber);
+        willInsert.setKind(directoryMapper.getDirectoryById(directoryId).getKind()); //真题还是模拟题
+        //拼接题目内容
+        JSONObject contentObject = new JSONObject();
+        contentObject.put("isImg", isContentImg.equalsIgnoreCase("Y"));
+        if (CollectionUtils.isEmpty(contentStrList)) {
+            contentObject.put("text", new ArrayList<String>());
+        } else {
+            contentObject.put("text", contentStrList);
+        }
+        if (CollectionUtils.isEmpty(contentImgNameList)) {
+            contentObject.put("imgUrl", new ArrayList<String>());
+        } else {
+            contentObject.put("imgUrl", contentImgNameList);
+        }
+        willInsert.setContent(JSON.toJSONString(contentObject));
+        //拼接选项option
+        JSONObject optionObject = new JSONObject();
+        optionObject.put("correctOption", correctSelectOption);
+        JSONArray optionList = new JSONArray();
+        JSONObject ABC = JSONObject.parseObject(OPTION_ABC);
+        for (int i = 0; i < selectOptionStrList.size(); i++) {
+            JSONObject item = new JSONObject();
+            item.put("isImg", false);
+            item.put(ABC.getString(String.valueOf(i)), selectOptionStrList.get(i));
+            optionList.add(item);
+        }
+        optionObject.put("optionList", optionList);
+        willInsert.setOption(JSON.toJSONString(optionObject));
+        //拼接答案解析analysis
+        JSONObject analysisObject = new JSONObject();
+        analysisObject.put("isImg", isAnswerImg.equalsIgnoreCase("Y"));
+        if (CollectionUtils.isEmpty(answerStrList)) {
+            analysisObject.put("text", new ArrayList<String>());
+        } else {
+            analysisObject.put("text", answerStrList);
+        }
+        if (CollectionUtils.isEmpty(answerImgNameList)) {
+            analysisObject.put("imgUrl", new ArrayList<String>());
+        } else {
+            analysisObject.put("imgUrl", answerImgNameList);
+        }
+        willInsert.setAnalysis(JSON.toJSONString(analysisObject));
+
+        //用于搜索的extra_info
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < contentStrList.size(); i++) {
+            sb.append(contentStrList.get(i));
+        }
+        willInsert.setExtraInfo(sb.toString());
+
+        questionMapper.insertQuestionData(willInsert);
         return true;
     }
 

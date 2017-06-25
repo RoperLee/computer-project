@@ -137,7 +137,7 @@ public class UtilController {
     /**
      * 添加试题
      *
-     * @param postData {"subjectId":"1","directoryId":"42","issuseType":"CHOICE","sortKeyNumber":"1","isContentImg":"N","contentStrList":["asdf asf  "],"contentImgNameList":null,"isSelectImg":false,"selectOptionStrList":["asdf asd","asdfa sdf "],"correctSelectOption":"B","isAnswerImg":"N","answerStrList":["asdf asdf "],"answerImgNameList":null}
+     * @param postData {"subjectId":"1","directoryId":"42","issuseType":"CHOICE","sortKeyNumber":"1","isContentImg":"Y","contentStrList":[""],"contentImgNameList":["10176-AN-icon.png","10108-AU-icon.png"],"isSelectImg":false,"selectOptionStrList":["asdfasdf","asdfasdf","asdfadsf"],"correctSelectOption":"A","isAnswerImg":"N","answerStrList":["asdfasdf"],"answerImgNameList":null}
      * @return
      * @throws IOException
      */
