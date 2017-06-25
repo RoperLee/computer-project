@@ -295,7 +295,7 @@ public class UtilService implements UtilServiceFacade {
     @Override
     public Object catchAndSaveImg(MultipartFile[] uploadImg) {
         try {
-            String dir = "/Users/roper/Desktop/img/";
+            String dir = imagePropertyUtils.getImagePath();
             for (MultipartFile myfile : uploadImg) {
                 if (myfile.isEmpty()) {
                     logger.info("文件未上传");
