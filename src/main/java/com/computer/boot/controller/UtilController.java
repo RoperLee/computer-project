@@ -118,13 +118,35 @@ public class UtilController {
     }
 
 
+    /**
+     * 图片文件的上传
+     *
+     * @param uploadImg
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @ResponseBody
-    @RequestMapping(value = "/question/ajax/img/uploade", method = RequestMethod.POST)
+    @RequestMapping(value = "/question/ajax/img/uploade")
     public Object catchAndSaveImg(@RequestParam MultipartFile[] uploadImg,
                                   HttpServletRequest request, HttpServletResponse response) throws IOException {
         return utilServiceFacade.catchAndSaveImg(uploadImg);
     }
 
+    /**
+     * 添加试题
+     *
+     * @param postData {"subjectId":"1","directoryId":"42","issuseType":"CHOICE","sortKeyNumber":"1","isContentImg":"N","contentStrList":["asdf asf  "],"contentImgNameList":null,"isSelectImg":false,"selectOptionStrList":["asdf asd","asdfa sdf "],"correctSelectOption":"B","isAnswerImg":"N","answerStrList":["asdf asdf "],"answerImgNameList":null}
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @RequestMapping(value = "/easyAddQuestion")
+    public boolean easyAddQuestion(@RequestParam("postData") String postData,
+                                   HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return utilServiceFacade.easyAddQuestion(postData);
+    }
 
 
 }

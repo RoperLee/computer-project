@@ -28,4 +28,6 @@ public interface UtilServiceFacade {
     User getUserInfo(Long userId);
 
     Object catchAndSaveImg(MultipartFile[] uploadImg);
+
+    boolean easyAddQuestion(String postData);
 }

@@ -173,6 +173,19 @@ public class UtilService implements UtilServiceFacade {
     }
 
     /**
+     * 保存试题
+     *
+     * @param postData {"subjectId":"1","directoryId":"42","issuseType":"CHOICE","sortKeyNumber":"1","isContentImg":"N","contentStrList":["asdf asf  "],"contentImgNameList":null,"isSelectImg":false,"selectOptionStrList":["asdf asd","asdfa sdf "],"correctSelectOption":"B","isAnswerImg":"N","answerStrList":["asdf asdf "],"answerImgNameList":null}
+     * @return
+     */
+    @Override
+    public boolean easyAddQuestion(String postData) {
+        
+        return true;
+    }
+
+
+    /**
      * 保存图片
      *
      * @param uploadImg
@@ -236,7 +249,6 @@ public class UtilService implements UtilServiceFacade {
         return filename;
     }
 }
-
 
 
 
