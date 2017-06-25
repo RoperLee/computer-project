@@ -14,3 +14,4 @@ buildNumber.properties
 .idea/
 .DS_Store
 */.DS_Store
+myapp.log
