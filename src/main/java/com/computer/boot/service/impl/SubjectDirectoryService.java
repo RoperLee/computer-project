@@ -3,13 +3,15 @@ package com.computer.boot.service.impl;
 import com.computer.boot.mapper.*;
 import com.computer.boot.model.*;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
-import com.computer.boot.vo.*;
+import com.computer.boot.vo.ChapterTreeVo;
+import com.computer.boot.vo.QuestionGroupVo;
+import com.computer.boot.vo.QuestionVo;
+import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,9 +108,9 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         for (QuestionType e : QuestionType.values()) {
             List<Question> list = getQuestionListBySubDirAndType(subjectId, directoryId, e);
             List<QuestionVo> tempList = utilService.parseQuestionList2QuestionVoList(list);
-            if (!CollectionUtils.isEmpty(tempList)) {
+//            if (!CollectionUtils.isEmpty(tempList)) {
                 QuestionCollect.add(tempList);
-            }
+//            }
         }
         resultGroup.setTotal(questionMapper.selectTotalNumber(subjectId, directoryId));
         resultGroup.setQuestionList(QuestionCollect);
