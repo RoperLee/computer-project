@@ -2,7 +2,9 @@ package com.computer.boot.controller;
 
 import com.computer.boot.model.Directory;
 import com.computer.boot.model.StoreType;
+import com.computer.boot.model.Subject;
 import com.computer.boot.service.SubjectDirectoryServiceFacade;
+import com.computer.boot.vo.DirectoryListVo;
 import com.computer.boot.vo.QuestionGroupVo;
 import com.computer.boot.vo.SubjectChapterTreeVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -28,6 +30,18 @@ public class SubjectRelativeController {
     private SubjectDirectoryServiceFacade subjectDirectoryServiceFacade;
 
     /**
+     * 获取所有的科目
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getAllSubject")
+    public List<Subject> getAllSubject(HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.getAllSubject();
+    }
+
+    /**
      * 根据科目ID获取该科目下的章节树
      *
      * @param subjectId
@@ -40,6 +54,21 @@ public class SubjectRelativeController {
                                                       HttpServletRequest request) {
         return subjectDirectoryServiceFacade.getChapterTreeBySubjectId(subjectId);
     }
+
+    /**
+     * 获取subjectId下的directory列表，并且按照  章节、真题、模拟题分组
+     *
+     * @param subjectId
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getDirectoryGroupBySubject")
+    public List<DirectoryListVo> getDirectoryGroupBySubject(@RequestParam(value = "subjectId") Long subjectId,
+                                                            HttpServletRequest request) {
+        return subjectDirectoryServiceFacade.getDirectoryGroupBySubject(subjectId);
+    }
+
 
     /**
      * 根据科目ID和题目类型获取对应的目录（主要是真题目录和模拟题目录）
@@ -161,9 +190,9 @@ public class SubjectRelativeController {
     @ResponseBody
     @RequestMapping(value = "/subject/getStoreQuestionList")
     public QuestionGroupVo getStoreQuestionList(@RequestParam(value = "userId") Long userId,
-                                                    @RequestParam(value = "subjectId") int subjectId,
-                                                    @RequestParam(value = "storeType") String storeType,
-                                                    HttpServletRequest request) {
+                                                @RequestParam(value = "subjectId") int subjectId,
+                                                @RequestParam(value = "storeType") String storeType,
+                                                HttpServletRequest request) {
         return subjectDirectoryServiceFacade.getStoreQuestionList(userId, subjectId, storeType);
     }
 

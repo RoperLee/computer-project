@@ -29,4 +29,14 @@ public interface QuestionMapper {
 
     Question getQuestionById(@Param("id") Long id);
 
+    void insertQuestionData(Question question);
+
+    Long hasExistCurrentQuestion(@Param("subjectId") Long subjectId,
+                                 @Param("directoryId") Long directoryId,
+                                 @Param("sortKeyNumber") Long sortKeyNumber);
+
+    void deleteCurrentQuestion(@Param("subjectId") Long subjectId,
+                               @Param("directoryId") Long directoryId,
+                               @Param("sortKeyNumber") Long sortKeyNumber);
+
 }

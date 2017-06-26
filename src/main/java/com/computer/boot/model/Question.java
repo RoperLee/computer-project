@@ -12,6 +12,8 @@ public class Question extends BasicModelObject {
     private int subjectId;
     private String kind;
     private Long directoryId;
+    private Long sortKeyNumber;
+    private String extraInfo;
 
     public String getQuestionType() {
         return questionType;
@@ -67,5 +69,21 @@ public class Question extends BasicModelObject {
 
     public void setDirectoryId(Long directoryId) {
         this.directoryId = directoryId;
+    }
+
+    public Long getSortKeyNumber() {
+        return sortKeyNumber;
+    }
+
+    public void setSortKeyNumber(Long sortKeyNumber) {
+        this.sortKeyNumber = sortKeyNumber;
+    }
+
+    public String getExtraInfo() {
+        return extraInfo;
+    }
+
+    public void setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
     }
 }

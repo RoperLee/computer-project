@@ -4,6 +4,8 @@
 
     <resultMap type="com.computer.boot.model.Question" id="Question">
         <result property="id" column="ID"/>
+        <result property="gmtCreat" column="GMT_CREAT"/>
+        <result property="isDeleted" column="IS_DELETED"/>
         <result property="questionType" column="QUESTION_TYPE"/>
         <result property="content" column="CONTENT"/>
         <result property="option" column="OPTION"/>
@@ -11,7 +13,55 @@
         <result property="subjectId" column="SUBJECT_ID"/>
         <result property="kind" column="KIND"/>
         <result property="directoryId" column="DIRECTORY_ID"/>
+        <result property="sortKeyNumber" column="SORT_KEY_NUMBER"/>
+        <result property="extraInfo" column="EXTRA_INFO"/>
     </resultMap>
+
+    <update id="deleteCurrentQuestion">
+        UPDATE COMPUTER_QUESTION
+        SET IS_DELETED = 'Y'
+        WHERE SUBJECT_ID = #{subjectId}
+        AND DIRECTORY_ID = #{directoryId}
+        AND SORT_KEY_NUMBER=#{sortKeyNumber}
+        AND IS_DELETED = 'N'
+    </update>
+
+    <insert id="insertQuestionData" parameterType="com.computer.boot.model.Question">
+        INSERT INTO COMPUTER_QUESTION(
+        ID,
+        GMT_CREAT,
+        IS_DELETED,
+        QUESTION_TYPE,
+        CONTENT,
+        COMPUTER_QUESTION.OPTION,
+        ANALYSIS,
+        SUBJECT_ID,
+        KIND,
+        DIRECTORY_ID,
+        SORT_KEY_NUMBER,
+        EXTRA_INFO)
+        VALUES(
+        null,
+        null,
+        'N',
+        #{questionType},
+        #{content},
+        #{option},
+        #{analysis},
+        #{subjectId},
+        #{kind},
+        #{directoryId},
+        #{sortKeyNumber},
+        #{extraInfo})
+    </insert>
+
+    <select id="hasExistCurrentQuestion" resultType="long">
+        SELECT COUNT(*) FROM COMPUTER_QUESTION
+        WHERE SUBJECT_ID = #{subjectId}
+        AND DIRECTORY_ID = #{directoryId}
+        AND SORT_KEY_NUMBER=#{sortKeyNumber}
+        AND IS_DELETED = 'N'
+    </select>
 
     <select id="getQuestionListBySubDirAndType" resultMap="Question">
         SELECT * FROM COMPUTER_QUESTION

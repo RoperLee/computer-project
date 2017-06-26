@@ -8,12 +8,11 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -117,5 +116,37 @@ public class UtilController {
                             HttpServletRequest request, HttpServletResponse response) {
         return utilServiceFacade.getUserInfo(userId);
     }
+
+
+    /**
+     * 图片文件的上传
+     *
+     * @param uploadImg
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @RequestMapping(value = "/question/ajax/img/uploade")
+    public Object catchAndSaveImg(@RequestParam MultipartFile[] uploadImg,
+                                  HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return utilServiceFacade.catchAndSaveImg(uploadImg);
+    }
+
+    /**
+     * 添加试题
+     *
+     * @param postData {"subjectId":"1","directoryId":"42","issuseType":"CHOICE","sortKeyNumber":"1","isContentImg":"Y","contentStrList":[""],"contentImgNameList":["10176-AN-icon.png","10108-AU-icon.png"],"isSelectImg":false,"selectOptionStrList":["asdfasdf","asdfasdf","asdfadsf"],"correctSelectOption":"A","isAnswerImg":"N","answerStrList":["asdfasdf"],"answerImgNameList":null}
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @RequestMapping(value = "/easyAddQuestion")
+    public boolean easyAddQuestion(@RequestParam("postData") String postData,
+                                   HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return utilServiceFacade.easyAddQuestion(postData);
+    }
+
 
 }

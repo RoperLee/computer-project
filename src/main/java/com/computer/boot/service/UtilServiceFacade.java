@@ -4,6 +4,7 @@ import com.computer.boot.model.User;
 import com.computer.boot.vo.LastDateVo;
 import com.computer.boot.vo.RankListVo;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -25,4 +26,8 @@ public interface UtilServiceFacade {
     List<String> getBanner();
 
     User getUserInfo(Long userId);
+
+    Object catchAndSaveImg(MultipartFile[] uploadImg);
+
+    boolean easyAddQuestion(String postData);
 }
