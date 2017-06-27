@@ -143,9 +143,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         for (QuestionType e : QuestionType.values()) {
             List<Question> list = getQuestionListBySubDirAndType(subjectId, directoryId, e);
             List<QuestionVo> tempList = utilService.parseQuestionList2QuestionVoList(list);
-//            if (!CollectionUtils.isEmpty(tempList)) {
-                QuestionCollect.add(tempList);
-//            }
+            QuestionCollect.add(tempList);
         }
         resultGroup.setTotal(questionMapper.selectTotalNumber(subjectId, directoryId));
         resultGroup.setQuestionList(QuestionCollect);
@@ -277,7 +275,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         for (int i = 0; i < storeIds.length; i++) {
             Question item = questionMapper.getQuestionById(Long.valueOf(storeIds[i]));
             if (null == item) continue;
-            QuestionVo vo = utilService.parseQuestion2QuestionVo(item);
+            QuestionVo vo = utilService.parseQuestion2QuestionVo(item, storeType);
             if (QuestionType.CHOICE.name().equalsIgnoreCase(item.getQuestionType())) {
                 choiceList.add(vo);
             } else if (QuestionType.BLANK.name().equalsIgnoreCase(item.getQuestionType())) {

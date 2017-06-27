@@ -129,6 +129,16 @@ public class UtilService implements UtilServiceFacade {
         return userMapper.getUser(userId);
     }
 
+    public QuestionVo parseQuestion2QuestionVo(Question item, String storeType) {
+        QuestionVo result = parseQuestion2QuestionVo(item);
+        if (StoreType.ERROR.name().equalsIgnoreCase(storeType)) {
+            result.setTitle("错题集");
+        } else if (StoreType.FAVORITE.name().equalsIgnoreCase(storeType)) {
+            result.setTitle("收藏题集");
+        }
+        return result;
+    }
+
     public QuestionVo parseQuestion2QuestionVo(Question item) {
         QuestionVo temp = new QuestionVo();
         temp.setId(item.getId());
@@ -171,6 +181,8 @@ public class UtilService implements UtilServiceFacade {
     }
 
     public String parseTitle(String origin) {
+        origin = origin.replaceAll("《", "_");
+        origin = origin.replaceAll("》", "_");
         if (origin.contains("真题")) {
             return origin.replaceAll("计算机二级考试", "");
         } else if (origin.contains("模拟题")) {
