@@ -305,7 +305,7 @@ public class UtilService implements UtilServiceFacade {
      * @return
      */
     @Override
-    public Object catchAndSaveImg(MultipartFile[] uploadImg) {
+    public Object catchAndSaveImg(MultipartFile[] uploadImg, String extra) {
         try {
             String dir = imagePropertyUtils.getImagePath();
             for (MultipartFile myfile : uploadImg) {
@@ -318,7 +318,7 @@ public class UtilService implements UtilServiceFacade {
                     logger.info("文件名称: " + myfile.getName());
                     logger.info("文件原名: " + myfile.getOriginalFilename());
                     logger.info("========================================");
-                    writeFile(myfile.getOriginalFilename(), dir, myfile.getInputStream(), myfile.getSize());
+                    writeFile(myfile.getOriginalFilename(), dir, myfile.getInputStream(), myfile.getSize(), extra);
 
                 }
             }
@@ -337,11 +337,11 @@ public class UtilService implements UtilServiceFacade {
      * @param input   要保存的输入流
      * @return 返回要保存到数据库中的路径
      */
-    private String writeFile(String srcName, String dirName, InputStream input, Long size) throws IOException {
+    private String writeFile(String srcName, String dirName, InputStream input, Long size, String extra) throws IOException {
 
 
         // 得到要上传的文件路径
-        String filename = dirName + size + "-" + srcName;
+        String filename = dirName + extra + "-" + size + "-" + srcName;
 
         logger.info(filename);
 

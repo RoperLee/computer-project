@@ -129,9 +129,9 @@ public class UtilController {
      */
     @ResponseBody
     @RequestMapping(value = "/question/ajax/img/uploade")
-    public Object catchAndSaveImg(@RequestParam MultipartFile[] uploadImg,
+    public Object catchAndSaveImg(@RequestParam MultipartFile[] uploadImg, @RequestParam("extra") String extra,
                                   HttpServletRequest request, HttpServletResponse response) throws IOException {
-        return utilServiceFacade.catchAndSaveImg(uploadImg);
+        return utilServiceFacade.catchAndSaveImg(uploadImg, extra);
     }
 
     /**
