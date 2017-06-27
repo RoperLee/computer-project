@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,9 +143,9 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         for (QuestionType e : QuestionType.values()) {
             List<Question> list = getQuestionListBySubDirAndType(subjectId, directoryId, e);
             List<QuestionVo> tempList = utilService.parseQuestionList2QuestionVoList(list);
-            if (!CollectionUtils.isEmpty(tempList)) {
+//            if (!CollectionUtils.isEmpty(tempList)) {
                 QuestionCollect.add(tempList);
-            }
+//            }
         }
         resultGroup.setTotal(questionMapper.selectTotalNumber(subjectId, directoryId));
         resultGroup.setQuestionList(QuestionCollect);
