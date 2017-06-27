@@ -277,6 +277,7 @@ public class SubjectDirectoryService implements SubjectDirectoryServiceFacade {
         List<QuestionVo> operateList = new ArrayList<>();
         for (int i = 0; i < storeIds.length; i++) {
             Question item = questionMapper.getQuestionById(Long.valueOf(storeIds[i]));
+            if (null == item) continue;
             QuestionVo vo = utilService.parseQuestion2QuestionVo(item);
             if (QuestionType.CHOICE.name().equalsIgnoreCase(item.getQuestionType())) {
                 choiceList.add(vo);
