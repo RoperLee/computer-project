@@ -21,7 +21,7 @@
     <select id="getIssueDirBySubjectIdAndKind" resultMap="Directory">
         SELECT * FROM COMPUTER_DIRECTORY
         WHERE SUBJECT_ID = #{subjectId}
-        AND KIND = #{issueKind}
+         AND KIND = #{issueKind}
         AND IS_DELETED = 'N'
         ORDER BY SORT_KEY_NUMBER
     </select>
